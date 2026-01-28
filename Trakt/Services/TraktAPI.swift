@@ -112,7 +112,7 @@ class TraktAPI {
     // MARK: - Network Request
 
     private func request<T: Decodable>(endpoint: String) async throws -> T {
-        guard let accessToken = authManager.getAccessToken() else {
+        guard let accessToken = await authManager.getValidAccessToken() else {
             throw TraktError.notAuthenticated
         }
 

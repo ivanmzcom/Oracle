@@ -21,10 +21,11 @@ enum TraktConfig {
 
     static let clientId = Secrets.traktClientId
     static let clientSecret = Secrets.traktClientSecret
+    static let redirectURI = "oracleimz://auth"
 
     enum Endpoints {
-        static let deviceCode = "/oauth/device/code"
-        static let deviceToken = "/oauth/device/token"
+        static let authorize = "/oauth/authorize"
+        static let token = "/oauth/token"
         static let calendarShows = "/calendars/my/shows"
         static let watchedShows = "/sync/watched/shows"
         static let hiddenShows = "/users/hidden/progress_watched"

@@ -58,47 +58,19 @@ struct UpcomingView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
 
-            if authManager.isAuthenticating, let deviceCode = authManager.deviceCode {
-                VStack(spacing: 16) {
-                    Text("Visita:")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-
-                    Link(deviceCode.verificationUrl, destination: URL(string: deviceCode.verificationUrl)!)
-                        .font(.headline)
-
-                    Text("E introduce el código:")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-
-                    Text(deviceCode.userCode)
-                        .font(.system(size: 32, weight: .bold, design: .monospaced))
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-
-                    Button("Cancelar") {
-                        authManager.cancelAuth()
-                    }
-                    .foregroundStyle(.red)
-                }
-                .padding()
-            } else {
-                Button {
-                    Task {
-                        await authManager.startDeviceAuth()
-                    }
-                } label: {
-                    Label("Iniciar sesión", systemImage: "person.crop.circle")
-                        .font(.headline)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.accentColor)
-                        .foregroundStyle(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                }
-                .padding(.horizontal, 40)
+            Button {
+                authManager.startAuth()
+            } label: {
+                Label("Iniciar sesión", systemImage: "person.crop.circle")
+                    .font(.headline)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.accentColor)
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
             }
+            .padding(.horizontal, 40)
+            .disabled(authManager.isAuthenticating)
 
             if let error = authManager.errorMessage {
                 Text(error)

@@ -3,22 +3,23 @@
 //  Trakt
 //
 
+import AuthenticationServices
 import Foundation
-import Security
 import Observation
+import Security
 
 @Observable
 @MainActor
-class AuthManager {
+class AuthManager: NSObject {
     var isAuthenticated = false
     var isAuthenticating = false
-    var deviceCode: DeviceCodeResponse?
     var errorMessage: String?
 
-    private var pollTimer: Timer?
+    private var webAuthSession: ASWebAuthenticationSession?
     private static let sharedDefaults = UserDefaults(suiteName: "group.com.ivanmz.Trakt")
 
-    init() {
+    override init() {
+        super.init()
         checkAuthStatus()
     }
 
@@ -26,111 +27,103 @@ class AuthManager {
         isAuthenticated = getAccessToken() != nil
     }
 
-    // MARK: - Device Code Flow
+    // MARK: - OAuth Flow with ASWebAuthenticationSession
 
-    func startDeviceAuth() async {
+    func startAuth() {
         isAuthenticating = true
         errorMessage = nil
 
-        let url = URL(string: "\(TraktConfig.baseURL)\(TraktConfig.Endpoints.deviceCode)")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        var components = URLComponents(string: "\(TraktConfig.baseURL)\(TraktConfig.Endpoints.authorize)")!
+        components.queryItems = [
+            URLQueryItem(name: "response_type", value: "code"),
+            URLQueryItem(name: "client_id", value: TraktConfig.clientId),
+            URLQueryItem(name: "redirect_uri", value: TraktConfig.redirectURI)
+        ]
 
-        let body = ["client_id": TraktConfig.clientId]
-        request.httpBody = try? JSONEncoder().encode(body)
-
-        do {
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let response = try JSONDecoder().decode(DeviceCodeResponse.self, from: data)
-            deviceCode = response
-            startPolling(deviceCode: response.deviceCode, interval: response.interval)
-        } catch {
-            errorMessage = "Error al iniciar autenticación: \(error.localizedDescription)"
+        guard let authURL = components.url else {
+            errorMessage = "Error al crear URL de autenticación"
             isAuthenticating = false
+            return
         }
-    }
 
-    private func startPolling(deviceCode: String, interval: Int) {
-        pollTimer?.invalidate()
-        pollTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(interval), repeats: true) { [weak self] _ in
-            Task { @MainActor [weak self] in
-                await self?.pollForToken(deviceCode: deviceCode)
+        webAuthSession = ASWebAuthenticationSession(
+            url: authURL,
+            callbackURLScheme: "oracleimz"
+        ) { [weak self] callbackURL, error in
+            Task { @MainActor in
+                await self?.handleCallback(url: callbackURL, error: error)
             }
         }
+
+        webAuthSession?.presentationContextProvider = self
+        webAuthSession?.prefersEphemeralWebBrowserSession = false
+        webAuthSession?.start()
     }
 
-    private func pollForToken(deviceCode: String) async {
-        let url = URL(string: "\(TraktConfig.baseURL)\(TraktConfig.Endpoints.deviceToken)")!
+    private func handleCallback(url: URL?, error: Error?) async {
+        defer { isAuthenticating = false }
+
+        if let error = error as? ASWebAuthenticationSessionError {
+            if error.code == .canceledLogin {
+                // User cancelled, no error message needed
+                return
+            }
+            errorMessage = "Error de autenticación: \(error.localizedDescription)"
+            return
+        }
+
+        guard let url = url,
+              let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let code = components.queryItems?.first(where: { $0.name == "code" })?.value else {
+            errorMessage = "No se recibió código de autorización"
+            return
+        }
+
+        await exchangeCodeForToken(code: code)
+    }
+
+    private func exchangeCodeForToken(code: String) async {
+        guard let url = URL(string: "\(TraktConfig.baseURL)\(TraktConfig.Endpoints.token)") else {
+            errorMessage = "URL inválida"
+            return
+        }
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let body: [String: String] = [
-            "code": deviceCode,
+            "code": code,
             "client_id": TraktConfig.clientId,
-            "client_secret": TraktConfig.clientSecret
+            "client_secret": TraktConfig.clientSecret,
+            "redirect_uri": TraktConfig.redirectURI,
+            "grant_type": "authorization_code"
         ]
         request.httpBody = try? JSONEncoder().encode(body)
 
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
 
-            guard let httpResponse = response as? HTTPURLResponse else { return }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                errorMessage = "Respuesta inválida del servidor"
+                return
+            }
 
-            switch httpResponse.statusCode {
-            case 200:
+            if httpResponse.statusCode == 200 {
                 let tokenResponse = try JSONDecoder().decode(TokenResponse.self, from: data)
                 saveTokens(tokenResponse)
-                pollTimer?.invalidate()
                 isAuthenticated = true
-                isAuthenticating = false
-                self.deviceCode = nil
-
-            case 400:
-                // Pending - user hasn't authorized yet, continue polling
-                break
-
-            case 404:
-                // Invalid device code
-                pollTimer?.invalidate()
-                errorMessage = "Código de dispositivo inválido"
-                isAuthenticating = false
-
-            case 409:
-                // Code already used
-                pollTimer?.invalidate()
-                errorMessage = "Código ya utilizado"
-                isAuthenticating = false
-
-            case 410:
-                // Code expired
-                pollTimer?.invalidate()
-                errorMessage = "Código expirado"
-                isAuthenticating = false
-
-            case 418:
-                // User denied
-                pollTimer?.invalidate()
-                errorMessage = "Acceso denegado"
-                isAuthenticating = false
-
-            case 429:
-                // Polling too fast
-                break
-
-            default:
-                break
+            } else {
+                errorMessage = "Error al obtener token: \(httpResponse.statusCode)"
             }
         } catch {
-            // Network error, continue polling
+            errorMessage = "Error de red: \(error.localizedDescription)"
         }
     }
 
     func cancelAuth() {
-        pollTimer?.invalidate()
+        webAuthSession?.cancel()
         isAuthenticating = false
-        deviceCode = nil
     }
 
     func logout() {
@@ -157,6 +150,60 @@ class AuthManager {
     nonisolated func getAccessToken() -> String? {
         getToken(key: TraktConfig.Keychain.accessToken)
             ?? Self.sharedDefaults?.string(forKey: TraktConfig.Keychain.accessToken)
+    }
+
+    /// Returns a valid access token, refreshing if needed
+    func getValidAccessToken() async -> String? {
+        // Check if token is expired
+        if let expiresAtString = getToken(key: TraktConfig.Keychain.expiresAt),
+           let expiresAt = Double(expiresAtString) {
+            let expirationDate = Date(timeIntervalSince1970: expiresAt)
+            // Refresh if expires in less than 5 minutes
+            if expirationDate < Date().addingTimeInterval(300) {
+                await refreshToken()
+            }
+        }
+
+        return getAccessToken()
+    }
+
+    private func refreshToken() async {
+        guard let refreshToken = getToken(key: TraktConfig.Keychain.refreshToken) else {
+            logout()
+            return
+        }
+
+        guard let url = URL(string: "\(TraktConfig.baseURL)\(TraktConfig.Endpoints.token)") else {
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let body: [String: String] = [
+            "refresh_token": refreshToken,
+            "client_id": TraktConfig.clientId,
+            "client_secret": TraktConfig.clientSecret,
+            "redirect_uri": TraktConfig.redirectURI,
+            "grant_type": "refresh_token"
+        ]
+        request.httpBody = try? JSONEncoder().encode(body)
+
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+
+            guard let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.statusCode == 200 else {
+                logout()
+                return
+            }
+
+            let tokenResponse = try JSONDecoder().decode(TokenResponse.self, from: data)
+            saveTokens(tokenResponse)
+        } catch {
+            logout()
+        }
     }
 
     // MARK: - Keychain Helpers
@@ -202,23 +249,15 @@ class AuthManager {
     }
 }
 
-// MARK: - Response Models
+// MARK: - ASWebAuthenticationPresentationContextProviding
 
-struct DeviceCodeResponse: Codable, Sendable {
-    let deviceCode: String
-    let userCode: String
-    let verificationUrl: String
-    let expiresIn: Int
-    let interval: Int
-
-    enum CodingKeys: String, CodingKey {
-        case deviceCode = "device_code"
-        case userCode = "user_code"
-        case verificationUrl = "verification_url"
-        case expiresIn = "expires_in"
-        case interval
+extension AuthManager: ASWebAuthenticationPresentationContextProviding {
+    nonisolated func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        ASPresentationAnchor()
     }
 }
+
+// MARK: - Response Models
 
 struct TokenResponse: Codable, Sendable {
     let accessToken: String
