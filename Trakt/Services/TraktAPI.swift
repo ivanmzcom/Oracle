@@ -109,6 +109,13 @@ class TraktAPI {
         return entries.filter { $0.firstAired >= now }
     }
 
+    // MARK: - User
+
+    func getUserSettings() async throws -> TraktUser {
+        let settings: UserSettings = try await request(endpoint: "/users/settings")
+        return settings.user
+    }
+
     // MARK: - Network Request
 
     private func request<T: Decodable>(endpoint: String) async throws -> T {

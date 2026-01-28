@@ -151,19 +151,6 @@ struct UpcomingView: View {
         .refreshable {
             await loadEpisodes()
         }
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Menu {
-                    Button(role: .destructive) {
-                        authManager.logout()
-                    } label: {
-                        Label("Cerrar sesión", systemImage: "rectangle.portrait.and.arrow.right")
-                    }
-                } label: {
-                    Image(systemName: "person.crop.circle")
-                }
-            }
-        }
     }
 
     // MARK: - Data Loading

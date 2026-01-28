@@ -14,6 +14,11 @@ struct ContentView: View {
                 .tabItem {
                     Label("Próximo", systemImage: "play.circle")
                 }
+
+            SettingsView()
+                .tabItem {
+                    Label("Ajustes", systemImage: "gear")
+                }
         }
     }
 }
