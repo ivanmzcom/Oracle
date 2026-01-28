@@ -21,7 +21,7 @@ struct SeasonDetailView: View {
     var body: some View {
         Group {
             if isLoading && episodes.isEmpty {
-                ProgressView("Cargando episodios...")
+                ProgressView(String(localized: "season.loading"))
             } else if let error = errorMessage {
                 errorView(error)
             } else {
@@ -37,9 +37,9 @@ struct SeasonDetailView: View {
 
     private var seasonTitle: String {
         if season.number == 0 {
-            return "Especiales"
+            return String(localized: "season.specials")
         } else {
-            return "Temporada \(season.number)"
+            return String(localized: "season.title", defaultValue: "Season \(season.number)")
         }
     }
 
@@ -51,7 +51,7 @@ struct SeasonDetailView: View {
                 .font(.system(size: 50))
                 .foregroundStyle(.orange)
 
-            Text("Error")
+            Text(String(localized: "season.error"))
                 .font(.title2)
                 .fontWeight(.medium)
 
@@ -60,7 +60,7 @@ struct SeasonDetailView: View {
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
 
-            Button("Reintentar") {
+            Button(String(localized: "season.retry")) {
                 Task {
                     await loadEpisodes()
                 }
@@ -90,7 +90,7 @@ struct SeasonDetailView: View {
                 }
             } header: {
                 if let count = season.episodeCount {
-                    Text("\(count) episodios")
+                    Text(String(localized: "show.episodes.count", defaultValue: "\(count) episodes"))
                 }
             }
         }
@@ -116,13 +116,13 @@ struct SeasonDetailView: View {
                     .foregroundStyle(Color.accentColor)
                     .frame(width: 40, alignment: .leading)
 
-                Text(episode.title ?? "Episodio \(episode.number)")
+                Text(episode.title ?? String(localized: "season.episode", defaultValue: "Episode \(episode.number)"))
                     .font(.headline)
 
                 Spacer()
 
                 if let runtime = episode.runtime {
-                    Text("\(runtime) min")
+                    Text(String(localized: "season.runtime", defaultValue: "\(runtime) min"))
                         .font(.caption)
                         .foregroundStyle(.tertiary)
                 }
@@ -147,7 +147,6 @@ struct SeasonDetailView: View {
     private func formattedDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
-        formatter.locale = Locale(identifier: "es_ES")
         return formatter.string(from: date)
     }
 

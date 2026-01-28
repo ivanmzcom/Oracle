@@ -41,7 +41,7 @@ class AuthManager: NSObject {
         ]
 
         guard let authURL = components.url else {
-            errorMessage = "Error al crear URL de autenticación"
+            errorMessage = String(localized: "auth.error.url")
             isAuthenticating = false
             return
         }
@@ -68,14 +68,14 @@ class AuthManager: NSObject {
                 // User cancelled, no error message needed
                 return
             }
-            errorMessage = "Error de autenticación: \(error.localizedDescription)"
+            errorMessage = String(localized: "auth.error.generic", defaultValue: "Authentication error: \(error.localizedDescription)")
             return
         }
 
         guard let url = url,
               let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let code = components.queryItems?.first(where: { $0.name == "code" })?.value else {
-            errorMessage = "No se recibió código de autorización"
+            errorMessage = String(localized: "auth.error.nocode")
             return
         }
 
@@ -84,7 +84,7 @@ class AuthManager: NSObject {
 
     private func exchangeCodeForToken(code: String) async {
         guard let url = URL(string: "\(TraktConfig.baseURL)\(TraktConfig.Endpoints.token)") else {
-            errorMessage = "URL inválida"
+            errorMessage = String(localized: "auth.error.invalidurl")
             return
         }
 
@@ -105,7 +105,7 @@ class AuthManager: NSObject {
             let (data, response) = try await URLSession.shared.data(for: request)
 
             guard let httpResponse = response as? HTTPURLResponse else {
-                errorMessage = "Respuesta inválida del servidor"
+                errorMessage = String(localized: "auth.error.invalidresponse")
                 return
             }
 
@@ -114,10 +114,10 @@ class AuthManager: NSObject {
                 saveTokens(tokenResponse)
                 isAuthenticated = true
             } else {
-                errorMessage = "Error al obtener token: \(httpResponse.statusCode)"
+                errorMessage = String(localized: "auth.error.token", defaultValue: "Error getting token: \(httpResponse.statusCode)")
             }
         } catch {
-            errorMessage = "Error de red: \(error.localizedDescription)"
+            errorMessage = String(localized: "auth.error.network", defaultValue: "Network error: \(error.localizedDescription)")
         }
     }
 

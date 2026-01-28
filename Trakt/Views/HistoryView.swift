@@ -32,20 +32,20 @@ struct HistoryView: View {
                 if !authManager.isAuthenticated {
                     authView
                 } else if isLoading && historyGroups.isEmpty {
-                    ProgressView("Cargando historial...")
+                    ProgressView(String(localized: "history.loading"))
                 } else if let error = errorMessage {
                     errorView(error)
                 } else {
                     historyList
                 }
             }
-            .navigationTitle("Historial")
+            .navigationTitle(String(localized: "history.title"))
             .task(id: authManager.isAuthenticated) {
                 if authManager.isAuthenticated && historyGroups.isEmpty {
                     await loadHistory()
                 }
             }
-            .alert("Error al eliminar", isPresented: .init(
+            .alert(String(localized: "history.delete.error"), isPresented: .init(
                 get: { deleteError != nil },
                 set: { if !$0 { deleteError = nil } }
             )) {
@@ -66,11 +66,11 @@ struct HistoryView: View {
                 .font(.system(size: 60))
                 .foregroundStyle(.secondary)
 
-            Text("Conecta tu cuenta de Trakt")
+            Text(String(localized: "auth.connect"))
                 .font(.title2)
                 .fontWeight(.medium)
 
-            Text("Para ver tu historial, necesitas iniciar sesión en Trakt.")
+            Text(String(localized: "auth.connect.history"))
                 .font(.body)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -79,7 +79,7 @@ struct HistoryView: View {
             Button {
                 authManager.startAuth()
             } label: {
-                Label("Iniciar sesión", systemImage: "person.crop.circle")
+                Label(String(localized: "auth.login"), systemImage: "person.crop.circle")
                     .font(.headline)
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -107,7 +107,7 @@ struct HistoryView: View {
                 .font(.system(size: 50))
                 .foregroundStyle(.orange)
 
-            Text("Error")
+            Text(String(localized: "history.error"))
                 .font(.title2)
                 .fontWeight(.medium)
 
@@ -116,7 +116,7 @@ struct HistoryView: View {
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
 
-            Button("Reintentar") {
+            Button(String(localized: "history.retry")) {
                 Task {
                     await loadHistory()
                 }
@@ -142,7 +142,7 @@ struct HistoryView: View {
                                     await deleteHistoryEntry(for: group)
                                 }
                             } label: {
-                                Label("Eliminar", systemImage: "trash")
+                                Label(String(localized: "history.delete"), systemImage: "trash")
                             }
                         }
                     }
@@ -174,9 +174,9 @@ struct HistoryView: View {
 
             if historyGroups.isEmpty && !isLoading {
                 ContentUnavailableView(
-                    "Sin historial",
+                    String(localized: "history.empty.title"),
                     systemImage: "clock.arrow.circlepath",
-                    description: Text("No tienes episodios vistos recientemente")
+                    description: Text(String(localized: "history.empty.description"))
                 )
             }
         }
@@ -212,20 +212,18 @@ struct HistoryView: View {
         let calendar = Calendar.current
 
         if calendar.isDateInToday(date) {
-            return "Hoy"
+            return String(localized: "date.today")
         } else if calendar.isDateInYesterday(date) {
-            return "Ayer"
+            return String(localized: "date.yesterday")
         } else if let daysAgo = calendar.dateComponents([.day], from: date, to: calendar.startOfDay(for: Date())).day,
                   daysAgo < 7 {
             // Show day name for this week
             let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: "es_ES")
             formatter.dateFormat = "EEEE"
             return formatter.string(from: date).capitalized
         } else {
             // Show full date
             let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: "es_ES")
             formatter.dateStyle = .long
             return formatter.string(from: date)
         }

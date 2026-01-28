@@ -12,23 +12,23 @@ struct ContentView: View {
 
     var body: some View {
         TabView {
-            Tab("Próximo", systemImage: "play.circle") {
+            Tab(String(localized: "tab.upcoming"), systemImage: "play.circle") {
                 UpcomingView()
             }
 
-            Tab("Historial", systemImage: "clock.arrow.circlepath") {
+            Tab(String(localized: "tab.history"), systemImage: "clock.arrow.circlepath") {
                 HistoryView()
             }
 
             Tab(role: .search) {
                 NavigationStack {
                     SearchView(searchText: $searchText)
-                        .navigationTitle("Buscar")
+                        .navigationTitle(String(localized: "tab.search"))
                 }
-                .searchable(text: $searchText, prompt: "Buscar series...")
+                .searchable(text: $searchText, prompt: String(localized: "search.prompt"))
             }
 
-            Tab("Ajustes", systemImage: "gear") {
+            Tab(String(localized: "tab.settings"), systemImage: "gear") {
                 SettingsView()
             }
         }

@@ -10,8 +10,8 @@ import UIKit
 // MARK: - Up Next Intent
 
 struct GetUpNextIntent: AppIntent {
-    static var title: LocalizedStringResource = "Ver Up Next"
-    static var description = IntentDescription("Muestra los episodios disponibles para ver ahora")
+    static var title: LocalizedStringResource = "See Up Next"
+    static var description = IntentDescription("Shows episodes available to watch now")
 
     static var openAppWhenRun: Bool = false
 
@@ -21,13 +21,13 @@ struct GetUpNextIntent: AppIntent {
         if episodes.isEmpty {
             return .result(
                 value: [],
-                view: EmptyEpisodesView(message: "No tienes episodios pendientes de ver")
+                view: EmptyEpisodesView(message: String(localized: "intent.upnext.empty"))
             )
         }
 
         return .result(
             value: episodes,
-            view: EpisodesSnippetView(title: "Up Next", episodes: Array(episodes.prefix(5)))
+            view: EpisodesSnippetView(title: String(localized: "intent.shortcut.upnext"), episodes: Array(episodes.prefix(5)))
         )
     }
 
@@ -145,8 +145,8 @@ struct GetUpNextIntent: AppIntent {
 // MARK: - Upcoming Intent
 
 struct GetUpcomingIntent: AppIntent {
-    static var title: LocalizedStringResource = "Ver Próximos Episodios"
-    static var description = IntentDescription("Muestra los episodios que se emitirán próximamente")
+    static var title: LocalizedStringResource = "See Upcoming Episodes"
+    static var description = IntentDescription("Shows episodes that will air soon")
 
     static var openAppWhenRun: Bool = false
 
@@ -156,13 +156,13 @@ struct GetUpcomingIntent: AppIntent {
         if episodes.isEmpty {
             return .result(
                 value: [],
-                view: EmptyEpisodesView(message: "No tienes episodios próximos programados")
+                view: EmptyEpisodesView(message: String(localized: "intent.upcoming.empty"))
             )
         }
 
         return .result(
             value: episodes,
-            view: EpisodesSnippetView(title: "Próximos", episodes: Array(episodes.prefix(5)))
+            view: EpisodesSnippetView(title: String(localized: "intent.shortcut.upcoming"), episodes: Array(episodes.prefix(5)))
         )
     }
 
@@ -237,7 +237,7 @@ struct EpisodeEntity: AppEntity {
     let airDate: Date
     let posterData: Data?
 
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "Episodio"
+    static var typeDisplayRepresentation: TypeDisplayRepresentation = "Episode"
 
     static var defaultQuery = EpisodeEntityQuery()
 
@@ -274,9 +274,9 @@ struct TraktShortcuts: AppShortcutsProvider {
         AppShortcut(
             intent: GetUpNextIntent(),
             phrases: [
-                "Ver Up Next en \(.applicationName)",
-                "Qué puedo ver en \(.applicationName)",
-                "Episodios disponibles en \(.applicationName)"
+                "See Up Next in \(.applicationName)",
+                "What can I watch in \(.applicationName)",
+                "Available episodes in \(.applicationName)"
             ],
             shortTitle: "Up Next",
             systemImageName: "play.circle"
@@ -285,11 +285,11 @@ struct TraktShortcuts: AppShortcutsProvider {
         AppShortcut(
             intent: GetUpcomingIntent(),
             phrases: [
-                "Ver próximos episodios en \(.applicationName)",
-                "Qué episodios vienen en \(.applicationName)",
-                "Calendario de \(.applicationName)"
+                "See upcoming episodes in \(.applicationName)",
+                "What episodes are coming in \(.applicationName)",
+                "Calendar for \(.applicationName)"
             ],
-            shortTitle: "Próximos",
+            shortTitle: "Upcoming",
             systemImageName: "calendar"
         )
     }
@@ -360,9 +360,9 @@ enum IntentError: Error, CustomLocalizedStringResourceConvertible {
     var localizedStringResource: LocalizedStringResource {
         switch self {
         case .notAuthenticated:
-            return "Debes iniciar sesión en la app primero"
+            return "You must log in to the app first"
         case .invalidURL:
-            return "Error al crear la solicitud"
+            return "Error creating request"
         }
     }
 }
@@ -379,7 +379,7 @@ struct EpisodesSnippetView: View {
                 Text(title)
                     .font(.headline)
                 Spacer()
-                Text("\(episodes.count) episodios")
+                Text(String(localized: "episode.count", defaultValue: "\(episodes.count) episodes"))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -435,7 +435,6 @@ struct EpisodesSnippetView: View {
 
     private func formatDate(_ date: Date) -> String {
         let formatter = RelativeDateTimeFormatter()
-        formatter.locale = Locale(identifier: "es_ES")
         formatter.unitsStyle = .short
         return formatter.localizedString(for: date, relativeTo: Date())
     }

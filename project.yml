@@ -16,7 +16,7 @@ settings:
     SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY: YES
 
 targets:
-  Trakt:
+  Oracle:
     type: application
     platform: iOS
     sources:
@@ -27,6 +27,7 @@ targets:
     settings:
       base:
         CODE_SIGN_ENTITLEMENTS: Trakt/Trakt.entitlements
+        PRODUCT_NAME: Oracle
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
         INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
@@ -36,9 +37,9 @@ targets:
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         STRING_CATALOG_GENERATE_SYMBOLS: YES
     dependencies:
-      - target: TraktWidgetExtension
+      - target: OracleWidgetExtension
 
-  TraktWidgetExtension:
+  OracleWidgetExtension:
     type: app-extension
     platform: iOS
     sources:
@@ -51,10 +52,11 @@ targets:
         CODE_SIGN_ENTITLEMENTS: TraktWidgetExtension.entitlements
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_FILE: TraktWidget/Info.plist
-        INFOPLIST_KEY_CFBundleDisplayName: TraktWidget
+        INFOPLIST_KEY_CFBundleDisplayName: OracleWidget
         INFOPLIST_KEY_NSHumanReadableCopyright: ""
         ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME: WidgetBackground
-        PRODUCT_BUNDLE_IDENTIFIER: com.ivanmz.Trakt.TraktWidget
+        PRODUCT_BUNDLE_IDENTIFIER: com.ivanmz.Oracle.OracleWidget
+        PRODUCT_NAME: OracleWidgetExtension
         STRING_CATALOG_GENERATE_SYMBOLS: YES
         SKIP_INSTALL: YES
     frameworks:

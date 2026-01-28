@@ -39,7 +39,7 @@ struct SettingsView: View {
 
                 aboutSection
             }
-            .navigationTitle("Ajustes")
+            .navigationTitle(String(localized: "settings.title"))
             .task {
                 if authManager.isAuthenticated && user == nil {
                     await loadUser()
@@ -48,14 +48,14 @@ struct SettingsView: View {
             .refreshable {
                 await loadUser()
             }
-            .alert("Cerrar sesión", isPresented: $showingLogoutAlert) {
-                Button("Cancelar", role: .cancel) { }
-                Button("Cerrar sesión", role: .destructive) {
+            .alert(String(localized: "settings.logout.title"), isPresented: $showingLogoutAlert) {
+                Button(String(localized: "settings.logout.cancel"), role: .cancel) { }
+                Button(String(localized: "settings.logout"), role: .destructive) {
                     authManager.logout()
                     user = nil
                 }
             } message: {
-                Text("¿Estás seguro de que quieres cerrar sesión?")
+                Text(String(localized: "settings.logout.message"))
             }
         }
     }
@@ -104,14 +104,14 @@ struct SettingsView: View {
             .padding(.vertical, 8)
 
             if let joinedAt = user.joinedAt {
-                LabeledContent("Miembro desde", value: formattedDate(joinedAt))
+                LabeledContent(String(localized: "settings.member.since"), value: formattedDate(joinedAt))
             }
 
             if let location = user.location, !location.isEmpty {
-                LabeledContent("Ubicación", value: location)
+                LabeledContent(String(localized: "settings.location"), value: location)
             }
         } header: {
-            Text("Cuenta")
+            Text(String(localized: "settings.account"))
         }
     }
 
@@ -124,7 +124,7 @@ struct SettingsView: View {
             } label: {
                 HStack {
                     Spacer()
-                    Text("Cerrar sesión")
+                    Text(String(localized: "settings.logout"))
                     Spacer()
                 }
             }
@@ -140,10 +140,10 @@ struct SettingsView: View {
                     .font(.system(size: 40))
                     .foregroundStyle(.secondary)
 
-                Text("No has iniciado sesión")
+                Text(String(localized: "settings.notloggedin.title"))
                     .font(.headline)
 
-                Text("Inicia sesión en la pestaña Próximo para ver tu cuenta.")
+                Text(String(localized: "settings.notloggedin.description"))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -157,7 +157,7 @@ struct SettingsView: View {
 
     private var aboutSection: some View {
         Section {
-            LabeledContent("Versión", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
+            LabeledContent(String(localized: "settings.version"), value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
 
             Link(destination: URL(string: "https://trakt.tv")!) {
                 HStack {
@@ -169,7 +169,7 @@ struct SettingsView: View {
                 }
             }
         } header: {
-            Text("Acerca de")
+            Text(String(localized: "settings.about"))
         }
     }
 
@@ -178,7 +178,6 @@ struct SettingsView: View {
     private func formattedDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
-        formatter.locale = Locale(identifier: "es_ES")
         return formatter.string(from: date)
     }
 

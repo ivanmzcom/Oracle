@@ -72,12 +72,12 @@ struct TraktWidgetEntryView: View {
 
     var body: some View {
         if !entry.isLoggedIn {
-            Text("Inicia sesión en Trakt")
+            Text("Log in to Trakt")
                 .font(.caption)
                 .multilineTextAlignment(.center)
                 .padding()
         } else if entry.episodes.isEmpty {
-            Text("No hay episodios próximos")
+            Text("No upcoming episodes")
                 .font(.caption)
                 .multilineTextAlignment(.center)
                 .padding()
@@ -160,8 +160,8 @@ struct TraktWidget: Widget {
                     .background()
             }
         }
-        .configurationDisplayName("Trakt - Próximos")
-        .description("Muestra tus próximos episodios.")
+        .configurationDisplayName("Trakt - Upcoming")
+        .description("Shows your upcoming episodes.")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }

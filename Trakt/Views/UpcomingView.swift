@@ -26,14 +26,14 @@ struct UpcomingView: View {
                 if !authManager.isAuthenticated {
                     authView
                 } else if isLoading && availableGroups.isEmpty && upcomingGroups.isEmpty {
-                    ProgressView("Cargando episodios...")
+                    ProgressView(String(localized: "upcoming.loading"))
                 } else if let error = errorMessage {
                     errorView(error)
                 } else {
                     episodesList
                 }
             }
-            .navigationTitle("Próximo")
+            .navigationTitle(String(localized: "upcoming.title"))
             .task(id: authManager.isAuthenticated) {
                 if authManager.isAuthenticated && availableGroups.isEmpty && upcomingGroups.isEmpty {
                     await loadEpisodes()
@@ -49,7 +49,7 @@ struct UpcomingView: View {
                     }
                 }
             }
-            .alert("Error al dropear", isPresented: .init(
+            .alert(String(localized: "upcoming.drop.error"), isPresented: .init(
                 get: { dropError != nil },
                 set: { if !$0 { dropError = nil } }
             )) {
@@ -70,11 +70,11 @@ struct UpcomingView: View {
                 .font(.system(size: 60))
                 .foregroundStyle(.secondary)
 
-            Text("Conecta tu cuenta de Trakt")
+            Text(String(localized: "auth.connect"))
                 .font(.title2)
                 .fontWeight(.medium)
 
-            Text("Para ver tus episodios, necesitas iniciar sesión en Trakt.")
+            Text(String(localized: "auth.connect.upcoming"))
                 .font(.body)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -83,7 +83,7 @@ struct UpcomingView: View {
             Button {
                 authManager.startAuth()
             } label: {
-                Label("Iniciar sesión", systemImage: "person.crop.circle")
+                Label(String(localized: "auth.login"), systemImage: "person.crop.circle")
                     .font(.headline)
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -111,7 +111,7 @@ struct UpcomingView: View {
                 .font(.system(size: 50))
                 .foregroundStyle(.orange)
 
-            Text("Error")
+            Text(String(localized: "upcoming.error"))
                 .font(.title2)
                 .fontWeight(.medium)
 
@@ -120,7 +120,7 @@ struct UpcomingView: View {
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
 
-            Button("Reintentar") {
+            Button(String(localized: "upcoming.retry")) {
                 Task {
                     await loadEpisodes()
                 }
@@ -146,7 +146,7 @@ struct UpcomingView: View {
                                     await dropShow(group.show)
                                 }
                             } label: {
-                                Label("Dropear", systemImage: "eye.slash")
+                                Label(String(localized: "upcoming.drop"), systemImage: "eye.slash")
                             }
                         }
                     }
@@ -167,7 +167,7 @@ struct UpcomingView: View {
                                     await dropShow(group.show)
                                 }
                             } label: {
-                                Label("Dropear", systemImage: "eye.slash")
+                                Label(String(localized: "upcoming.drop"), systemImage: "eye.slash")
                             }
                         }
                     }
@@ -178,9 +178,9 @@ struct UpcomingView: View {
 
             if availableGroups.isEmpty && upcomingGroups.isEmpty {
                 ContentUnavailableView(
-                    "Sin episodios",
+                    String(localized: "upcoming.empty.title"),
                     systemImage: "tv",
-                    description: Text("No tienes episodios pendientes")
+                    description: Text(String(localized: "upcoming.empty.description"))
                 )
             }
         }
@@ -216,20 +216,18 @@ struct UpcomingView: View {
         let calendar = Calendar.current
 
         if calendar.isDateInToday(date) {
-            return "Hoy"
+            return String(localized: "date.today")
         } else if calendar.isDateInTomorrow(date) {
-            return "Mañana"
+            return String(localized: "date.tomorrow")
         } else if let daysUntil = calendar.dateComponents([.day], from: calendar.startOfDay(for: Date()), to: date).day,
                   daysUntil < 7 {
             // Show day name for this week
             let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: "es_ES")
             formatter.dateFormat = "EEEE"
             return formatter.string(from: date).capitalized
         } else {
             // Show full date
             let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: "es_ES")
             formatter.dateStyle = .long
             return formatter.string(from: date)
         }

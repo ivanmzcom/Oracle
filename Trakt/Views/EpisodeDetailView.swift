@@ -57,7 +57,7 @@ struct EpisodeDetailView: View {
                         Divider()
 
                         VStack(alignment: .leading, spacing: 8) {
-                            Text("Sinopsis")
+                            Text(String(localized: "episode.synopsis"))
                                 .font(.headline)
 
                             Text(overview)
@@ -157,7 +157,7 @@ struct EpisodeDetailView: View {
 
                 Spacer()
 
-                Text("\(group.episodeCount) episodios")
+                Text(String(localized: "episode.count", defaultValue: "\(group.episodeCount) episodes"))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -195,7 +195,6 @@ struct EpisodeDetailView: View {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .short
-        formatter.locale = Locale(identifier: "es_ES")
         return formatter.string(from: date)
     }
 
@@ -203,7 +202,6 @@ struct EpisodeDetailView: View {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         formatter.timeStyle = .short
-        formatter.locale = Locale(identifier: "es_ES")
         return formatter.string(from: date)
     }
 

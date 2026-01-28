@@ -22,7 +22,7 @@ struct SearchView: View {
             if searchText.isEmpty && !hasSearched {
                 emptyState
             } else if isSearching {
-                ProgressView("Buscando...")
+                ProgressView(String(localized: "search.loading"))
             } else if searchResults.isEmpty && hasSearched {
                 noResultsView
             } else {
@@ -40,9 +40,9 @@ struct SearchView: View {
 
     private var emptyState: some View {
         ContentUnavailableView(
-            "Buscar series",
+            String(localized: "search.empty.title"),
             systemImage: "magnifyingglass",
-            description: Text("Escribe el nombre de una serie para buscar")
+            description: Text(String(localized: "search.empty.description"))
         )
     }
 
@@ -50,9 +50,9 @@ struct SearchView: View {
 
     private var noResultsView: some View {
         ContentUnavailableView(
-            "Sin resultados",
+            String(localized: "search.noresults.title"),
             systemImage: "magnifyingglass",
-            description: Text("No se encontraron series para \"\(searchText)\"")
+            description: Text(String(localized: "search.noresults.description", defaultValue: "No shows found for \"\(searchText)\""))
         )
     }
 

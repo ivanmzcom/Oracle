@@ -70,7 +70,7 @@ struct ShowDetailView: View {
                         Divider()
 
                         VStack(alignment: .leading, spacing: 8) {
-                            Text("Sinopsis")
+                            Text(String(localized: "show.synopsis"))
                                 .font(.headline)
 
                             Text(overview)
@@ -95,7 +95,7 @@ struct ShowDetailView: View {
                             }
                         } label: {
                             Label(
-                                isInWatchlist ? "Quitar de Watchlist" : "Añadir a Watchlist",
+                                isInWatchlist ? String(localized: "show.watchlist.remove") : String(localized: "show.watchlist.add"),
                                 systemImage: isInWatchlist ? "bookmark.slash" : "bookmark"
                             )
                             .font(.headline)
@@ -136,7 +136,7 @@ struct ShowDetailView: View {
 
     private var seasonsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Temporadas")
+            Text(String(localized: "show.seasons"))
                 .font(.headline)
 
             VStack(spacing: 0) {
@@ -170,12 +170,12 @@ struct ShowDetailView: View {
     private func seasonRow(_ season: Season) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                Text(season.number == 0 ? "Especiales" : "Temporada \(season.number)")
+                Text(season.number == 0 ? String(localized: "show.specials") : String(localized: "show.season", defaultValue: "Season \(season.number)"))
                     .font(.subheadline)
                     .fontWeight(.medium)
 
                 if let episodeCount = season.episodeCount {
-                    Text("\(episodeCount) episodios")
+                    Text(String(localized: "show.episodes.count", defaultValue: "\(episodeCount) episodes"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -195,12 +195,12 @@ struct ShowDetailView: View {
     @ViewBuilder
     private func progressSection(_ progress: ShowProgress) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Progreso")
+            Text(String(localized: "show.progress"))
                 .font(.headline)
 
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text("\(progress.completed) de \(progress.aired) episodios")
+                    Text(String(localized: "show.progress.episodes", defaultValue: "\(progress.completed) of \(progress.aired) episodes"))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
 
@@ -226,7 +226,7 @@ struct ShowDetailView: View {
     @ViewBuilder
     private func nextEpisodeRow(_ episode: ProgressEpisode) -> some View {
         HStack {
-            Text("Siguiente:")
+            Text(String(localized: "show.progress.next"))
                 .font(.caption)
                 .foregroundStyle(.secondary)
 

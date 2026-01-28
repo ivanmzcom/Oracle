@@ -364,15 +364,15 @@ enum TraktError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notAuthenticated:
-            return "No autenticado. Inicia sesión en Trakt."
+            return String(localized: "api.error.notauthenticated")
         case .invalidURL:
-            return "URL inválida"
+            return String(localized: "api.error.invalidurl")
         case .invalidResponse:
-            return "Respuesta inválida del servidor"
+            return String(localized: "api.error.invalidresponse")
         case .notFound:
-            return "Recurso no encontrado"
+            return String(localized: "api.error.notfound")
         case .serverError(let code):
-            return "Error del servidor: \(code)"
+            return String(localized: "api.error.server", defaultValue: "Server error: \(code)")
         }
     }
 }
