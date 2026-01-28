@@ -8,27 +8,23 @@ import Foundation
 actor ImageService {
     static let shared = ImageService()
 
-    private var showCache: [Int: TMDBShowResponse] = [:]
     private var episodeCache: [String: TMDBEpisodeResponse] = [:]
 
-    // MARK: - Show Images
+    // MARK: - Show Images (using shared cache)
 
     func getPosterURL(for tmdbId: Int?, size: String = "w154") async -> URL? {
         guard let tmdbId = tmdbId else { return nil }
-
-        let show = await fetchShowDetails(tmdbId: tmdbId)
-        guard let posterPath = show?.posterPath else { return nil }
-
-        return URL(string: "\(TMDBConfig.imageBaseURL)/\(size)\(posterPath)")
+        return await ImageCache.shared.getPosterURL(tmdbId: tmdbId, size: size)
     }
 
     func getBackdropURL(for tmdbId: Int?, size: String = "w780") async -> URL? {
         guard let tmdbId = tmdbId else { return nil }
+        return await ImageCache.shared.getBackdropURL(tmdbId: tmdbId, size: size)
+    }
 
-        let show = await fetchShowDetails(tmdbId: tmdbId)
-        guard let backdropPath = show?.backdropPath else { return nil }
-
-        return URL(string: "\(TMDBConfig.imageBaseURL)/\(size)\(backdropPath)")
+    func getPosterData(for tmdbId: Int?, size: String = "w154") async -> Data? {
+        guard let tmdbId = tmdbId else { return nil }
+        return await ImageCache.shared.getPosterData(tmdbId: tmdbId, size: size)
     }
 
     // MARK: - Episode Details
@@ -41,33 +37,10 @@ actor ImageService {
     func getEpisodeStillURL(showId: Int, season: Int, episode: Int, size: String = "w300") async -> URL? {
         let episodeDetails = await fetchEpisodeDetails(showId: showId, season: season, episode: episode)
         guard let stillPath = episodeDetails?.stillPath else { return nil }
-
-        return URL(string: "\(TMDBConfig.imageBaseURL)/\(size)\(stillPath)")
+        return URL(string: "https://image.tmdb.org/t/p/\(size)\(stillPath)")
     }
 
-    // MARK: - Fetching
-
-    private func fetchShowDetails(tmdbId: Int) async -> TMDBShowResponse? {
-        if let cached = showCache[tmdbId] {
-            return cached
-        }
-
-        guard let url = URL(string: "\(TMDBConfig.baseURL)/tv/\(tmdbId)") else {
-            return nil
-        }
-
-        var request = URLRequest(url: url)
-        request.setValue("Bearer \(TMDBConfig.apiKey)", forHTTPHeaderField: "Authorization")
-
-        do {
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let response = try JSONDecoder().decode(TMDBShowResponse.self, from: data)
-            showCache[tmdbId] = response
-            return response
-        } catch {
-            return nil
-        }
-    }
+    // MARK: - Episode Fetching
 
     private func fetchEpisodeDetails(showId: Int, season: Int, episode: Int) async -> TMDBEpisodeResponse? {
         let cacheKey = "\(showId)-\(season)-\(episode)"
@@ -76,12 +49,17 @@ actor ImageService {
             return cached
         }
 
-        guard let url = URL(string: "\(TMDBConfig.baseURL)/tv/\(showId)/season/\(season)/episode/\(episode)?language=es-ES") else {
+        let sharedDefaults = UserDefaults(suiteName: "group.com.ivanmz.Trakt")
+        guard let apiKey = sharedDefaults?.string(forKey: "tmdb_api_key") else {
+            return nil
+        }
+
+        guard let url = URL(string: "https://api.themoviedb.org/3/tv/\(showId)/season/\(season)/episode/\(episode)?language=es-ES") else {
             return nil
         }
 
         var request = URLRequest(url: url)
-        request.setValue("Bearer \(TMDBConfig.apiKey)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
 
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
@@ -93,6 +71,8 @@ actor ImageService {
         }
     }
 }
+
+// MARK: - Response Models
 
 enum ImageError: Error {
     case invalidURL

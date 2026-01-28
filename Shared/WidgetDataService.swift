@@ -12,10 +12,6 @@ actor WidgetDataService {
         sharedDefaults?.string(forKey: "trakt_client_id")
     }
 
-    private var tmdbAPIKey: String? {
-        sharedDefaults?.string(forKey: "tmdb_api_key")
-    }
-
     private var accessToken: String? {
         sharedDefaults?.string(forKey: "trakt_access_token")
     }
@@ -31,11 +27,14 @@ actor WidgetDataService {
         do {
             let entries = try await fetchCalendarEntries(accessToken: accessToken, clientId: clientId)
 
-            // Fetch poster URLs in parallel
+            // Fetch poster URLs in parallel using shared cache
             return await withTaskGroup(of: (Int, WidgetEpisodeData).self) { group in
                 for (index, entry) in entries.prefix(10).enumerated() {
                     group.addTask {
-                        let posterURL = await self.fetchPosterURL(tmdbId: entry.tmdbId)
+                        var posterURL: URL? = nil
+                        if let tmdbId = entry.tmdbId {
+                            posterURL = await ImageCache.shared.getPosterURL(tmdbId: tmdbId)
+                        }
                         return (index, WidgetEpisodeData(
                             showTitle: entry.showTitle,
                             episodeCode: entry.episodeCode,
@@ -97,34 +96,6 @@ actor WidgetDataService {
             }
     }
 
-    // MARK: - TMDB API
-
-    private func fetchPosterURL(tmdbId: Int?) async -> URL? {
-        guard let tmdbId = tmdbId,
-              let apiKey = tmdbAPIKey else {
-            return nil
-        }
-
-        guard let url = URL(string: "https://api.themoviedb.org/3/tv/\(tmdbId)") else {
-            return nil
-        }
-
-        var request = URLRequest(url: url)
-        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
-
-        do {
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let response = try JSONDecoder().decode(TMDBResponse.self, from: data)
-
-            if let posterPath = response.posterPath {
-                return URL(string: "https://image.tmdb.org/t/p/w154\(posterPath)")
-            }
-        } catch {
-            // Ignore errors, just return nil
-        }
-
-        return nil
-    }
 }
 
 // MARK: - Private DTOs
@@ -159,14 +130,6 @@ private struct ShowDTO: Decodable {
 
 private struct ShowIdsDTO: Decodable {
     let tmdb: Int?
-}
-
-private struct TMDBResponse: Decodable {
-    let posterPath: String?
-
-    enum CodingKeys: String, CodingKey {
-        case posterPath = "poster_path"
-    }
 }
 
 private enum WidgetDataError: Error {

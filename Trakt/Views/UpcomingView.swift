@@ -124,15 +124,15 @@ struct UpcomingView: View {
                 }
             }
 
-            if !upcomingGroups.isEmpty {
+            ForEach(upcomingGroupedByDay, id: \.date) { dayGroup in
                 Section {
-                    ForEach(upcomingGroups) { group in
+                    ForEach(dayGroup.episodes) { group in
                         NavigationLink(value: group) {
                             EpisodeRowView(group: group)
                         }
                     }
                 } header: {
-                    SectionHeaderView(title: "Próximamente", count: upcomingGroups.map(\.episodeCount).reduce(0, +))
+                    SectionHeaderView(title: formatDayHeader(dayGroup.date), count: dayGroup.episodes.map(\.episodeCount).reduce(0, +))
                 }
             }
 
@@ -150,6 +150,48 @@ struct UpcomingView: View {
         .listStyle(.insetGrouped)
         .refreshable {
             await loadEpisodes()
+        }
+    }
+
+    // MARK: - Grouped by Day
+
+    private struct DayGroup {
+        let date: Date
+        let episodes: [EpisodeGroup]
+    }
+
+    private var upcomingGroupedByDay: [DayGroup] {
+        let calendar = Calendar.current
+
+        let grouped = Dictionary(grouping: upcomingGroups) { group in
+            calendar.startOfDay(for: group.firstAired)
+        }
+
+        return grouped
+            .map { DayGroup(date: $0.key, episodes: $0.value.sorted { $0.firstAired < $1.firstAired }) }
+            .sorted { $0.date < $1.date }
+    }
+
+    private func formatDayHeader(_ date: Date) -> String {
+        let calendar = Calendar.current
+
+        if calendar.isDateInToday(date) {
+            return "Hoy"
+        } else if calendar.isDateInTomorrow(date) {
+            return "Mañana"
+        } else if let daysUntil = calendar.dateComponents([.day], from: calendar.startOfDay(for: Date()), to: date).day,
+                  daysUntil < 7 {
+            // Show day name for this week
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "es_ES")
+            formatter.dateFormat = "EEEE"
+            return formatter.string(from: date).capitalized
+        } else {
+            // Show full date
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "es_ES")
+            formatter.dateStyle = .long
+            return formatter.string(from: date)
         }
     }
 
