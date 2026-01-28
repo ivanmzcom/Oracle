@@ -1,0 +1,118 @@
+/*
+  Localizable.strings
+  Trakt
+
+  Spanish Localization
+*/
+
+// MARK: - Tab Titles
+"tab.upcoming" = "Próximo";
+"tab.history" = "Historial";
+"tab.search" = "Buscar";
+"tab.settings" = "Ajustes";
+
+// MARK: - Upcoming View
+"upcoming.title" = "Próximo";
+"upcoming.loading" = "Cargando episodios...";
+"upcoming.error" = "Error";
+"upcoming.retry" = "Reintentar";
+"upcoming.empty.title" = "Sin episodios";
+"upcoming.empty.description" = "No tienes episodios pendientes";
+"upcoming.drop" = "Dropear";
+"upcoming.drop.error" = "Error al dropear";
+
+// MARK: - History View
+"history.title" = "Historial";
+"history.loading" = "Cargando historial...";
+"history.error" = "Error";
+"history.retry" = "Reintentar";
+"history.empty.title" = "Sin historial";
+"history.empty.description" = "No tienes episodios vistos recientemente";
+"history.delete" = "Eliminar";
+"history.delete.error" = "Error al eliminar";
+
+// MARK: - Search View
+"search.title" = "Buscar";
+"search.prompt" = "Buscar series...";
+"search.loading" = "Buscando...";
+"search.empty.title" = "Buscar series";
+"search.empty.description" = "Escribe el nombre de una serie para buscar";
+"search.noresults.title" = "Sin resultados";
+"search.noresults.description" = "No se encontraron series para \"%@\"";
+
+// MARK: - Settings View
+"settings.title" = "Ajustes";
+"settings.account" = "Cuenta";
+"settings.member.since" = "Miembro desde";
+"settings.location" = "Ubicación";
+"settings.logout" = "Cerrar sesión";
+"settings.logout.title" = "Cerrar sesión";
+"settings.logout.message" = "¿Estás seguro de que quieres cerrar sesión?";
+"settings.logout.cancel" = "Cancelar";
+"settings.notloggedin.title" = "No has iniciado sesión";
+"settings.notloggedin.description" = "Inicia sesión en la pestaña Próximo para ver tu cuenta.";
+"settings.about" = "Acerca de";
+"settings.version" = "Versión";
+
+// MARK: - Authentication
+"auth.connect" = "Conecta tu cuenta de Trakt";
+"auth.connect.upcoming" = "Para ver tus episodios, necesitas iniciar sesión en Trakt.";
+"auth.connect.history" = "Para ver tu historial, necesitas iniciar sesión en Trakt.";
+"auth.login" = "Iniciar sesión";
+"auth.error.url" = "Error al crear URL de autenticación";
+"auth.error.generic" = "Error de autenticación: %@";
+"auth.error.nocode" = "No se recibió código de autorización";
+"auth.error.invalidurl" = "URL inválida";
+"auth.error.invalidresponse" = "Respuesta inválida del servidor";
+"auth.error.token" = "Error al obtener token: %d";
+"auth.error.network" = "Error de red: %@";
+
+// MARK: - Show Detail View
+"show.synopsis" = "Sinopsis";
+"show.progress" = "Progreso";
+"show.progress.episodes" = "%d de %d episodios";
+"show.progress.next" = "Siguiente:";
+"show.seasons" = "Temporadas";
+"show.season" = "Temporada %d";
+"show.specials" = "Especiales";
+"show.episodes.count" = "%d episodios";
+"show.watchlist.add" = "Añadir a Watchlist";
+"show.watchlist.remove" = "Quitar de Watchlist";
+
+// MARK: - Season Detail View
+"season.title" = "Temporada %d";
+"season.specials" = "Especiales";
+"season.loading" = "Cargando episodios...";
+"season.error" = "Error";
+"season.retry" = "Reintentar";
+"season.episode" = "Episodio %d";
+"season.runtime" = "%d min";
+
+// MARK: - Episode Detail View
+"episode.synopsis" = "Sinopsis";
+"episode.count" = "%d episodios";
+
+// MARK: - Date Headers
+"date.today" = "Hoy";
+"date.tomorrow" = "Mañana";
+"date.yesterday" = "Ayer";
+
+// MARK: - API Errors
+"api.error.notauthenticated" = "No autenticado. Inicia sesión en Trakt.";
+"api.error.invalidurl" = "URL inválida";
+"api.error.invalidresponse" = "Respuesta inválida del servidor";
+"api.error.notfound" = "Recurso no encontrado";
+"api.error.server" = "Error del servidor: %d";
+
+// MARK: - App Intents
+"intent.upnext.title" = "Ver Up Next";
+"intent.upnext.description" = "Muestra los episodios disponibles para ver ahora";
+"intent.upnext.empty" = "No tienes episodios pendientes de ver";
+"intent.upcoming.title" = "Ver Próximos Episodios";
+"intent.upcoming.description" = "Muestra los episodios que se emitirán próximamente";
+"intent.upcoming.empty" = "No tienes episodios próximos programados";
+"intent.error.notauthenticated" = "Debes iniciar sesión en la app primero";
+"intent.error.invalidurl" = "Error al crear la solicitud";
+"intent.entity.episode" = "Episodio";
+"intent.shortcut.upnext" = "Up Next";
+"intent.shortcut.upcoming" = "Próximos";

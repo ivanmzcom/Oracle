@@ -75,6 +75,7 @@
 		4F45A6645022483A46821CEA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		56D8315BD745D0FEBE5E5C08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		59C72FB864D86A62B3C2F638 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5C8EF524881568FB0356CB51 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		620B428AEAE331B9336446F4 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		63EAE220523B9C6554F5160F /* Oracle.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Oracle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		729A715A0FF88836BE27611F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -284,6 +285,7 @@
 			knownRegions = (
 				Base,
 				en,
+				es,
 			);
 			mainGroup = 4DBD1E152410EB4A09716E91;
 			minimizedProjectReferenceProxies = 1;
@@ -375,6 +377,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				729A715A0FF88836BE27611F /* en */,
+				5C8EF524881568FB0356CB51 /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
