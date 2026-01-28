@@ -3,8 +3,51 @@ options:
   bundleIdPrefix: com.ivanmz
   deploymentTarget:
     iOS: "18.0"
+    watchOS: "11.0"
   developmentLanguage: en
   xcodeVersion: "26.2"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+
+schemes:
+  Oracle:
+    build:
+      targets:
+        Oracle: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+
+  OracleWatch:
+    build:
+      targets:
+        OracleWatch: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+
+  OracleWidgetExtension:
+    build:
+      targets:
+        OracleWidgetExtension: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
 
 settings:
   base:
@@ -38,6 +81,24 @@ targets:
         STRING_CATALOG_GENERATE_SYMBOLS: YES
     dependencies:
       - target: OracleWidgetExtension
+      - target: OracleWatch
+
+  OracleWatch:
+    type: application
+    platform: watchOS
+    sources:
+      - path: OracleWatch
+      - path: Shared
+      - path: Trakt/Models
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.ivanmz.Oracle.watchkitapp
+        PRODUCT_NAME: OracleWatch
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_WKCompanionAppBundleIdentifier: com.ivanmz.Oracle
+        INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp: YES
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        STRING_CATALOG_GENERATE_SYMBOLS: YES
 
   OracleWidgetExtension:
     type: app-extension

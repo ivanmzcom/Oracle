@@ -1,0 +1,116 @@
+/*
+  Localizable.strings
+  Trakt
+*/
+
+// MARK: - Tab Titles
+"tab.upcoming" = "Upcoming";
+"tab.history" = "History";
+"tab.search" = "Search";
+"tab.settings" = "Settings";
+
+// MARK: - Upcoming View
+"upcoming.title" = "Upcoming";
+"upcoming.loading" = "Loading episodes...";
+"upcoming.error" = "Error";
+"upcoming.retry" = "Retry";
+"upcoming.empty.title" = "No Episodes";
+"upcoming.empty.description" = "You don't have any pending episodes";
+"upcoming.drop" = "Drop";
+"upcoming.drop.error" = "Error dropping show";
+
+// MARK: - History View
+"history.title" = "History";
+"history.loading" = "Loading history...";
+"history.error" = "Error";
+"history.retry" = "Retry";
+"history.empty.title" = "No History";
+"history.empty.description" = "You haven't watched any episodes recently";
+"history.delete" = "Delete";
+"history.delete.error" = "Error deleting";
+
+// MARK: - Search View
+"search.title" = "Search";
+"search.prompt" = "Search shows...";
+"search.loading" = "Searching...";
+"search.empty.title" = "Search Shows";
+"search.empty.description" = "Type a show name to search";
+"search.noresults.title" = "No Results";
+"search.noresults.description" = "No shows found for \"%@\"";
+
+// MARK: - Settings View
+"settings.title" = "Settings";
+"settings.account" = "Account";
+"settings.member.since" = "Member since";
+"settings.location" = "Location";
+"settings.logout" = "Log Out";
+"settings.logout.title" = "Log Out";
+"settings.logout.message" = "Are you sure you want to log out?";
+"settings.logout.cancel" = "Cancel";
+"settings.notloggedin.title" = "Not logged in";
+"settings.notloggedin.description" = "Log in on the Upcoming tab to see your account.";
+"settings.about" = "About";
+"settings.version" = "Version";
+
+// MARK: - Authentication
+"auth.connect" = "Connect your Trakt account";
+"auth.connect.upcoming" = "To see your episodes, you need to log in to Trakt.";
+"auth.connect.history" = "To see your history, you need to log in to Trakt.";
+"auth.login" = "Log In";
+"auth.error.url" = "Error creating authentication URL";
+"auth.error.generic" = "Authentication error: %@";
+"auth.error.nocode" = "No authorization code received";
+"auth.error.invalidurl" = "Invalid URL";
+"auth.error.invalidresponse" = "Invalid server response";
+"auth.error.token" = "Error getting token: %d";
+"auth.error.network" = "Network error: %@";
+
+// MARK: - Show Detail View
+"show.synopsis" = "Synopsis";
+"show.progress" = "Progress";
+"show.progress.episodes" = "%d of %d episodes";
+"show.progress.next" = "Next:";
+"show.seasons" = "Seasons";
+"show.season" = "Season %d";
+"show.specials" = "Specials";
+"show.episodes.count" = "%d episodes";
+"show.watchlist.add" = "Add to Watchlist";
+"show.watchlist.remove" = "Remove from Watchlist";
+
+// MARK: - Season Detail View
+"season.title" = "Season %d";
+"season.specials" = "Specials";
+"season.loading" = "Loading episodes...";
+"season.error" = "Error";
+"season.retry" = "Retry";
+"season.episode" = "Episode %d";
+"season.runtime" = "%d min";
+
+// MARK: - Episode Detail View
+"episode.synopsis" = "Synopsis";
+"episode.count" = "%d episodes";
+
+// MARK: - Date Headers
+"date.today" = "Today";
+"date.tomorrow" = "Tomorrow";
+"date.yesterday" = "Yesterday";
+
+// MARK: - API Errors
+"api.error.notauthenticated" = "Not authenticated. Log in to Trakt.";
+"api.error.invalidurl" = "Invalid URL";
+"api.error.invalidresponse" = "Invalid server response";
+"api.error.notfound" = "Resource not found";
+"api.error.server" = "Server error: %d";
+
+// MARK: - App Intents
+"intent.upnext.title" = "See Up Next";
+"intent.upnext.description" = "Shows episodes available to watch now";
+"intent.upnext.empty" = "You don't have any episodes to watch";
+"intent.upcoming.title" = "See Upcoming Episodes";
+"intent.upcoming.description" = "Shows episodes that will air soon";
+"intent.upcoming.empty" = "You don't have any upcoming episodes scheduled";
+"intent.error.notauthenticated" = "You must log in to the app first";
+"intent.error.invalidurl" = "Error creating request";
+"intent.entity.episode" = "Episode";
+"intent.shortcut.upnext" = "Up Next";
+"intent.shortcut.upcoming" = "Upcoming";
