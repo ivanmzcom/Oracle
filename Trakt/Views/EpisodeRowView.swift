@@ -12,65 +12,86 @@ struct EpisodeRowView: View {
 
     var body: some View {
         HStack(spacing: 12) {
+            // Poster with shadow
             AsyncImage(url: posterURL) { phase in
                 switch phase {
                 case .empty:
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(Color(.systemGray5))
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(
+                            LinearGradient(
+                                colors: [Color(.systemGray4), Color(.systemGray5)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
                         .overlay {
                             ProgressView()
-                                .scaleEffect(0.5)
+                                .scaleEffect(0.6)
                         }
                 case .success(let image):
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .clipShape(RoundedRectangle(cornerRadius: 6))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
                 case .failure:
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(Color(.systemGray5))
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(
+                            LinearGradient(
+                                colors: [Color(.systemGray4), Color(.systemGray5)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
                         .overlay {
                             Image(systemName: "tv")
+                                .font(.title3)
                                 .foregroundStyle(.secondary)
                         }
                 @unknown default:
                     EmptyView()
                 }
             }
-            .frame(width: 44, height: 66)
+            .frame(width: 60, height: 90)
             .clipped()
+            .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
             .overlay(alignment: .topLeading) {
                 if group.unwatchedCount > 1 {
                     Text("\(group.unwatchedCount)")
-                        .font(.caption)
+                        .font(.caption2)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
-                        .padding(.horizontal, 5)
-                        .padding(.vertical, 2)
-                        .background(.red, in: Capsule())
-                        .offset(x: -6, y: -6)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 3)
+                        .background(
+                            Capsule()
+                                .fill(.red)
+                                .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 1)
+                        )
+                        .offset(x: -8, y: -8)
                 }
             }
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 6) {
                 Text(group.show.title)
                     .font(.headline)
 
-                HStack {
+                HStack(spacing: 8) {
+                    // Episode code pill
                     Text(group.episodeCode)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .font(.caption)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(Color.accentColor)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(Color.accentColor.opacity(0.12))
+                        .clipShape(Capsule())
 
                     if let title = group.episodeTitle {
-                        Text("•")
-                            .foregroundStyle(.secondary)
                         Text(title)
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                             .lineLimit(1)
                     } else if group.episodeCount > 1 {
-                        Text("•")
-                            .foregroundStyle(.secondary)
                         Text("\(group.episodeCount) episodios")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
@@ -83,8 +104,13 @@ struct EpisodeRowView: View {
             }
 
             Spacer()
+
+            Image(systemName: "chevron.right")
+                .font(.caption)
+                .fontWeight(.semibold)
+                .foregroundStyle(.tertiary)
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, 6)
         .task {
             posterURL = await ImageService.shared.getPosterURL(for: group.show.ids.tmdb)
         }

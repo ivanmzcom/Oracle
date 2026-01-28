@@ -13,16 +13,17 @@ struct SectionHeaderView: View {
         HStack {
             Text(title)
                 .font(.title3)
-                .fontWeight(.semibold)
+                .fontWeight(.bold)
 
             Spacer()
 
             Text("\(count)")
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 2)
-                .background(Color(.systemGray5))
+                .fontWeight(.medium)
+                .foregroundStyle(Color.accentColor)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 4)
+                .background(Color.accentColor.opacity(0.15))
                 .clipShape(Capsule())
         }
     }

@@ -36,9 +36,13 @@ struct ShowDetailView: View {
                                 .fontWeight(.bold)
 
                             if let year = show.year {
-                                Text(String(year))
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
+                                HStack(spacing: 4) {
+                                    Image(systemName: "calendar")
+                                        .font(.caption)
+                                    Text(String(year))
+                                        .font(.subheadline)
+                                }
+                                .foregroundStyle(.secondary)
                             }
                         }
 
@@ -61,14 +65,12 @@ struct ShowDetailView: View {
 
                     // Progress
                     if let progress = progress, progress.aired > 0 {
-                        Divider()
                         progressSection(progress)
+                        Divider()
                     }
 
                     // Overview
                     if let overview = overview, !overview.isEmpty {
-                        Divider()
-
                         VStack(alignment: .leading, spacing: 8) {
                             Text(String(localized: "show.synopsis"))
                                 .font(.headline)
@@ -77,11 +79,11 @@ struct ShowDetailView: View {
                                 .font(.body)
                                 .foregroundStyle(.secondary)
                         }
+                        Divider()
                     }
 
                     // Seasons list
                     if !seasons.isEmpty {
-                        Divider()
                         seasonsSection
                     }
 
@@ -198,49 +200,103 @@ struct ShowDetailView: View {
             Text(String(localized: "show.progress"))
                 .font(.headline)
 
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Text(String(localized: "show.progress.episodes", defaultValue: "\(progress.completed) of \(progress.aired) episodes"))
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-
-                    Spacer()
-
+            VStack(alignment: .leading, spacing: 10) {
+                // Progress bar with percentage
+                HStack(alignment: .center, spacing: 12) {
                     let percentage = Int(Double(progress.completed) / Double(progress.aired) * 100)
+
+                    // Progress bar
+                    GeometryReader { geometry in
+                        ZStack(alignment: .leading) {
+                            // Background
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(Color(.systemGray5))
+
+                            // Filled portion with gradient
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(
+                                    LinearGradient(
+                                        colors: [Color.accentColor, Color.accentColor.opacity(0.7)],
+                                        startPoint: .leading,
+                                        endPoint: .trailing
+                                    )
+                                )
+                                .frame(width: geometry.size.width * CGFloat(progress.completed) / CGFloat(progress.aired))
+                        }
+                    }
+                    .frame(height: 8)
+
+                    // Percentage with color based on completion
                     Text("\(percentage)%")
                         .font(.subheadline)
-                        .fontWeight(.medium)
-                        .foregroundStyle(Color.accentColor)
+                        .fontWeight(.bold)
+                        .foregroundStyle(percentageColor(percentage))
+                        .frame(minWidth: 44, alignment: .trailing)
                 }
 
-                ProgressView(value: Double(progress.completed), total: Double(progress.aired))
-                    .tint(Color.accentColor)
+                // Episode count
+                Text(String(localized: "show.progress.episodes", defaultValue: "\(progress.completed) of \(progress.aired) episodes"))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
 
+                // Next episode card
                 if let nextEpisode = progress.nextEpisode {
-                    nextEpisodeRow(nextEpisode)
+                    nextEpisodeCard(nextEpisode)
                 }
             }
+        }
+        .padding()
+        .background(Color(.secondarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    private func percentageColor(_ percentage: Int) -> Color {
+        if percentage >= 100 {
+            return .green
+        } else if percentage >= 50 {
+            return .accentColor
+        } else {
+            return .secondary
         }
     }
 
     @ViewBuilder
-    private func nextEpisodeRow(_ episode: ProgressEpisode) -> some View {
-        HStack {
-            Text(String(localized: "show.progress.next"))
-                .font(.caption)
-                .foregroundStyle(.secondary)
+    private func nextEpisodeCard(_ episode: ProgressEpisode) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: "play.circle.fill")
+                .font(.title2)
+                .foregroundStyle(Color.accentColor)
 
-            Text(String(format: "S%02dE%02d", episode.season, episode.number))
-                .font(.caption)
-                .fontWeight(.medium)
-
-            if let title = episode.title {
-                Text("• \(title)")
+            VStack(alignment: .leading, spacing: 2) {
+                Text(String(localized: "show.progress.next"))
                     .font(.caption)
                     .foregroundStyle(.secondary)
-                    .lineLimit(1)
+
+                HStack(spacing: 8) {
+                    // Episode code pill
+                    Text(String(format: "S%02dE%02d", episode.season, episode.number))
+                        .font(.caption)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(Color.accentColor)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(Color.accentColor.opacity(0.12))
+                        .clipShape(Capsule())
+
+                    if let title = episode.title {
+                        Text(title)
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                            .lineLimit(1)
+                    }
+                }
             }
+
+            Spacer()
         }
+        .padding(12)
+        .background(Color(.tertiarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 
     // MARK: - Header Image

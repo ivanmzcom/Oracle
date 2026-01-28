@@ -106,47 +106,73 @@ struct SearchResultRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
+            // Poster with shadow
             AsyncImage(url: posterURL) { phase in
                 switch phase {
                 case .empty:
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(Color(.systemGray5))
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(
+                            LinearGradient(
+                                colors: [Color(.systemGray4), Color(.systemGray5)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
                         .overlay {
                             ProgressView()
-                                .scaleEffect(0.5)
+                                .scaleEffect(0.6)
                         }
                 case .success(let image):
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .clipShape(RoundedRectangle(cornerRadius: 6))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
                 case .failure:
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(Color(.systemGray5))
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(
+                            LinearGradient(
+                                colors: [Color(.systemGray4), Color(.systemGray5)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
                         .overlay {
                             Image(systemName: "tv")
+                                .font(.title3)
                                 .foregroundStyle(.secondary)
                         }
                 @unknown default:
                     EmptyView()
                 }
             }
-            .frame(width: 50, height: 75)
+            .frame(width: 60, height: 90)
+            .clipped()
+            .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 6) {
                 Text(show.title)
                     .font(.headline)
 
                 if let year = show.year {
-                    Text(String(year))
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                    HStack(spacing: 4) {
+                        Image(systemName: "calendar")
+                            .font(.caption)
+                            .foregroundStyle(.tertiary)
+                        Text(String(year))
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
 
             Spacer()
+
+            Image(systemName: "chevron.right")
+                .font(.caption)
+                .fontWeight(.semibold)
+                .foregroundStyle(.tertiary)
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, 6)
         .task {
             posterURL = await ImageService.shared.getPosterURL(for: show.ids.tmdb)
         }
