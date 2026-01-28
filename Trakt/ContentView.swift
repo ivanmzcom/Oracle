@@ -15,6 +15,11 @@ struct ContentView: View {
                     Label("Próximo", systemImage: "play.circle")
                 }
 
+            HistoryView()
+                .tabItem {
+                    Label("Historial", systemImage: "clock.arrow.circlepath")
+                }
+
             SettingsView()
                 .tabItem {
                     Label("Ajustes", systemImage: "gear")

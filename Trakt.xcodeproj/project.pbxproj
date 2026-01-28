@@ -31,6 +31,7 @@
 		E2723C76A156B0F21EF318FC /* EpisodeRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1019B01A5CF4D2A6B9A26BB2 /* EpisodeRowView.swift */; };
 		EA0E236FFD8D20606981ADFB /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120DEDB66959EBEBA6B18DA /* Show.swift */; };
 		EB8770D44A8DC26C1898CEF7 /* AppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A9F82C9DE0C256B3DFBB3F /* AppIntents.swift */; };
+		F48C907EA5BFCA800FEACF26 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CB83DE777576AD5355322A /* HistoryView.swift */; };
 		FCBC36F66487BE040400B8E4 /* TraktWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF5A1FEFAF2DDC0E9E525D /* TraktWidget.swift */; };
 		FF10334944DBE16624E276C3 /* WidgetDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9742EC0163BC1B49E4A432 /* WidgetDataService.swift */; };
 		FF626845589552008024ACF3 /* WidgetEpisodeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD778D21DBA50D487CFD4A33 /* WidgetEpisodeData.swift */; };
@@ -75,6 +76,7 @@
 		8120DEDB66959EBEBA6B18DA /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
 		8BA6B51C3BC6F72C58EB1496 /* TraktWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TraktWidget.entitlements; sourceTree = "<group>"; };
 		950BBD705B2929CD0A9E8E83 /* EpisodeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailView.swift; sourceTree = "<group>"; };
+		A4CB83DE777576AD5355322A /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		A63A1FF6D8C612950B4006DE /* TraktAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktAPI.swift; sourceTree = "<group>"; };
 		A8A9F82C9DE0C256B3DFBB3F /* AppIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntents.swift; sourceTree = "<group>"; };
 		A98D3F81E0FD53E2BA682F8C /* TraktWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = TraktWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +158,7 @@
 			children = (
 				950BBD705B2929CD0A9E8E83 /* EpisodeDetailView.swift */,
 				1019B01A5CF4D2A6B9A26BB2 /* EpisodeRowView.swift */,
+				A4CB83DE777576AD5355322A /* HistoryView.swift */,
 				37000030042900846F75AB60 /* SectionHeaderView.swift */,
 				B769161B7BD3F04649B7DBE2 /* SettingsView.swift */,
 				41FCE3A73F3F9109BEE37123 /* UpcomingView.swift */,
@@ -305,6 +308,7 @@
 				5BC103D07608C26BDEED8332 /* Episode.swift in Sources */,
 				1625CF5F6DAB4FEED5BCEF69 /* EpisodeDetailView.swift in Sources */,
 				E2723C76A156B0F21EF318FC /* EpisodeRowView.swift in Sources */,
+				F48C907EA5BFCA800FEACF26 /* HistoryView.swift in Sources */,
 				B585E6C9176DFEA03B2BA352 /* ImageCache.swift in Sources */,
 				A2A95118459CF886A26B0484 /* ImageService.swift in Sources */,
 				BC47932F57892F1CB8E79540 /* Secrets.swift in Sources */,

@@ -38,6 +38,18 @@ struct EpisodeRowView: View {
                 }
             }
             .frame(width: 44, height: 66)
+            .overlay(alignment: .topTrailing) {
+                if group.episodeCount > 1 {
+                    Text("\(group.episodeCount)")
+                        .font(.caption2)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 5)
+                        .padding(.vertical, 2)
+                        .background(.red, in: Capsule())
+                        .offset(x: 4, y: -4)
+                }
+            }
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(group.show.title)

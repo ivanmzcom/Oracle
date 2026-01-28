@@ -109,6 +109,19 @@ class TraktAPI {
         return entries.filter { $0.firstAired >= now }
     }
 
+    // MARK: - History
+
+    func getWatchHistory(page: Int = 1, limit: Int = 50) async throws -> [HistoryEntry] {
+        let endpoint = "/users/me/history/episodes?page=\(page)&limit=\(limit)"
+        return try await request(endpoint: endpoint)
+    }
+
+    func removeFromHistory(historyId: Int) async throws {
+        let endpoint = "/sync/history/remove"
+        let body: [String: [Int]] = ["ids": [historyId]]
+        let _: HistoryRemoveResponse = try await postRequest(endpoint: endpoint, body: body)
+    }
+
     // MARK: - User
 
     func getUserSettings() async throws -> TraktUser {
@@ -156,6 +169,67 @@ class TraktAPI {
             throw TraktError.serverError(httpResponse.statusCode)
         }
     }
+
+    private func postRequest<T: Decodable, B: Encodable>(endpoint: String, body: B) async throws -> T {
+        guard let accessToken = await authManager.getValidAccessToken() else {
+            throw TraktError.notAuthenticated
+        }
+
+        guard let url = URL(string: "\(TraktConfig.baseURL)\(endpoint)") else {
+            throw TraktError.invalidURL
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(TraktConfig.apiVersion, forHTTPHeaderField: "trakt-api-version")
+        request.setValue(TraktConfig.clientId, forHTTPHeaderField: "trakt-api-key")
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw TraktError.invalidResponse
+        }
+
+        switch httpResponse.statusCode {
+        case 200...299:
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            return try decoder.decode(T.self, from: data)
+
+        case 401:
+            throw TraktError.notAuthenticated
+
+        case 404:
+            throw TraktError.notFound
+
+        default:
+            throw TraktError.serverError(httpResponse.statusCode)
+        }
+    }
+}
+
+// MARK: - Response Models
+
+struct HistoryRemoveResponse: Decodable {
+    let deleted: HistoryDeletedCount
+    let notFound: HistoryNotFound
+
+    enum CodingKeys: String, CodingKey {
+        case deleted
+        case notFound = "not_found"
+    }
+}
+
+struct HistoryDeletedCount: Decodable {
+    let movies: Int
+    let episodes: Int
+}
+
+struct HistoryNotFound: Decodable {
+    let ids: [Int]
 }
 
 enum TraktError: LocalizedError {

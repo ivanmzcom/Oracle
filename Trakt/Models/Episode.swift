@@ -156,3 +156,39 @@ extension Array where Element == CalendarEntry {
         return groups.sorted { $0.firstAired < $1.firstAired }
     }
 }
+
+// MARK: - History Entry
+
+struct HistoryEntry: Codable, Identifiable {
+    let id: Int
+    let watchedAt: Date
+    let action: String
+    let type: String
+    let episode: Episode
+    let show: Show
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case watchedAt = "watched_at"
+        case action
+        case type
+        case episode
+        case show
+    }
+}
+
+// MARK: - History Grouping Helper
+
+extension Array where Element == HistoryEntry {
+    func asHistoryGroups() -> [EpisodeGroup] {
+        // Convert history entries to calendar entries for reuse of EpisodeGroup
+        let calendarEntries = self.map { entry in
+            CalendarEntry(
+                firstAired: entry.watchedAt,
+                episode: entry.episode,
+                show: entry.show
+            )
+        }
+        return calendarEntries.asIndividualGroups()
+    }
+}
