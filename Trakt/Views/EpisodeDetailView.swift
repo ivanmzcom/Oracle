@@ -18,30 +18,6 @@ struct EpisodeDetailView: View {
                 headerImage
 
                 VStack(alignment: .leading, spacing: 16) {
-                    // Show title and year
-                    NavigationLink(value: group.show) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            HStack {
-                                Text(group.show.title)
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(.primary)
-
-                                Image(systemName: "chevron.right")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
-                            }
-
-                            if let year = group.show.year {
-                                Text(String(year))
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                    }
-
-                    Divider()
-
                     // Episode info
                     VStack(alignment: .leading, spacing: 12) {
                         if group.episodes.count == 1 {
@@ -50,6 +26,31 @@ struct EpisodeDetailView: View {
                             multipleEpisodesInfo
                         }
                     }
+
+                    Divider()
+
+                    // Show title and year
+                    NavigationLink(value: group.show) {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(group.show.title)
+                                    .font(.headline)
+
+                                if let year = group.show.year {
+                                    Text(String(year))
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+
+                            Spacer()
+
+                            Image(systemName: "chevron.right")
+                                .font(.body)
+                                .foregroundStyle(.tertiary)
+                        }
+                    }
+                    .buttonStyle(.plain)
 
                     // Overview
                     if let overview = overview, !overview.isEmpty {
@@ -141,6 +142,7 @@ struct EpisodeDetailView: View {
                 Text(title)
                     .font(.title3)
                     .fontWeight(.medium)
+                    .foregroundStyle(Color.accentColor)
             }
         }
     }
