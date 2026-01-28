@@ -6,133 +6,315 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		05E2D33A9A3D798DAB7EDC3F /* TraktApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24B4E78744BAD1D1F0DE43 /* TraktApp.swift */; };
+		16EAB3B85019FD9A4AE1F874 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BFF57DF389BF56360D3925 /* Constants.swift */; };
+		1BD2614761C7F7F14554FEE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56D8315BD745D0FEBE5E5C08 /* Assets.xcassets */; };
+		2017C0C61A6885E8FF85F88A /* WidgetEpisodeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD778D21DBA50D487CFD4A33 /* WidgetEpisodeData.swift */; };
+		2E58E588335DA066797F95D3 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB44E3ED99C5D2FFD4DA6E /* AuthManager.swift */; };
+		492CD40AA35F07059B53302C /* UpcomingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCE3A73F3F9109BEE37123 /* UpcomingView.swift */; };
+		5BC103D07608C26BDEED8332 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007AC39B35501FFF499A4F50 /* Episode.swift */; };
+		6D3DA159224CBE0D93D1CB44 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37000030042900846F75AB60 /* SectionHeaderView.swift */; };
+		7A28174D4920C23A4AB49571 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C72FB864D86A62B3C2F638 /* ContentView.swift */; };
+		82F625D18E56305DA57E19E9 /* TraktWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A129C8C90445C799E0482 /* TraktWidgetBundle.swift */; };
+		9DE252361147E520566F5F7D /* TraktAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63A1FF6D8C612950B4006DE /* TraktAPI.swift */; };
+		A2A95118459CF886A26B0484 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FC52DC8E674D3BB943053 /* ImageService.swift */; };
+		AFE18C5ABADA8B7ADA67EE49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0BA5BE445833E83D00053B7 /* Assets.xcassets */; };
+		BC47932F57892F1CB8E79540 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED806B6A7DE2CA4549215612 /* Secrets.swift */; };
+		D2FE45A412E230A13C8C73C2 /* TraktWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A98D3F81E0FD53E2BA682F8C /* TraktWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E2723C76A156B0F21EF318FC /* EpisodeRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1019B01A5CF4D2A6B9A26BB2 /* EpisodeRowView.swift */; };
+		EA0E236FFD8D20606981ADFB /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120DEDB66959EBEBA6B18DA /* Show.swift */; };
+		FCBC36F66487BE040400B8E4 /* TraktWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF5A1FEFAF2DDC0E9E525D /* TraktWidget.swift */; };
+		FF626845589552008024ACF3 /* WidgetEpisodeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD778D21DBA50D487CFD4A33 /* WidgetEpisodeData.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		41ED878778E9015A7F169CFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F29E1F03D014A49E5D3630B4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 42668C9A44507106C1489220;
+			remoteInfo = TraktWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		262461196CA6EA1EC2FF6E5A /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D2FE45A412E230A13C8C73C2 /* TraktWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		2C8004822F2962B30057D0C2 /* Trakt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trakt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		007AC39B35501FFF499A4F50 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
+		1019B01A5CF4D2A6B9A26BB2 /* EpisodeRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeRowView.swift; sourceTree = "<group>"; };
+		2EFF101B4D2344120EBC781F /* Trakt.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Trakt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		33BFF57DF389BF56360D3925 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3419B446D7E709AB45133CED /* Trakt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Trakt.entitlements; sourceTree = "<group>"; };
+		37000030042900846F75AB60 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		41FCE3A73F3F9109BEE37123 /* UpcomingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingView.swift; sourceTree = "<group>"; };
+		56D8315BD745D0FEBE5E5C08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		59C72FB864D86A62B3C2F638 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8120DEDB66959EBEBA6B18DA /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
+		8BA6B51C3BC6F72C58EB1496 /* TraktWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TraktWidget.entitlements; sourceTree = "<group>"; };
+		A63A1FF6D8C612950B4006DE /* TraktAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktAPI.swift; sourceTree = "<group>"; };
+		A98D3F81E0FD53E2BA682F8C /* TraktWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = TraktWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		AACF5A1FEFAF2DDC0E9E525D /* TraktWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktWidget.swift; sourceTree = "<group>"; };
+		D0BA5BE445833E83D00053B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D73FC52DC8E674D3BB943053 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		D8AB44E3ED99C5D2FFD4DA6E /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		DA5A129C8C90445C799E0482 /* TraktWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktWidgetBundle.swift; sourceTree = "<group>"; };
+		DD778D21DBA50D487CFD4A33 /* WidgetEpisodeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEpisodeData.swift; sourceTree = "<group>"; };
+		ED806B6A7DE2CA4549215612 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		FA24B4E78744BAD1D1F0DE43 /* TraktApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		2C8004842F2962B30057D0C2 /* Trakt */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
+/* Begin PBXGroup section */
+		4DBD1E152410EB4A09716E91 = {
+			isa = PBXGroup;
+			children = (
+				534F922EACA9B6E34D3863C0 /* Shared */,
+				AFF1E3D06BC78B589F972340 /* Trakt */,
+				6CA22B9A4CDEB8F426C68CC9 /* TraktWidget */,
+				721793504427AD79F7007159 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		534F922EACA9B6E34D3863C0 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				DD778D21DBA50D487CFD4A33 /* WidgetEpisodeData.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		6CA22B9A4CDEB8F426C68CC9 /* TraktWidget */ = {
+			isa = PBXGroup;
+			children = (
+				56D8315BD745D0FEBE5E5C08 /* Assets.xcassets */,
+				8BA6B51C3BC6F72C58EB1496 /* TraktWidget.entitlements */,
+				AACF5A1FEFAF2DDC0E9E525D /* TraktWidget.swift */,
+				DA5A129C8C90445C799E0482 /* TraktWidgetBundle.swift */,
+			);
+			path = TraktWidget;
+			sourceTree = "<group>";
+		};
+		721793504427AD79F7007159 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2EFF101B4D2344120EBC781F /* Trakt.app */,
+				A98D3F81E0FD53E2BA682F8C /* TraktWidgetExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7CC9BD34D8496BC6FC9DA11C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D8AB44E3ED99C5D2FFD4DA6E /* AuthManager.swift */,
+				D73FC52DC8E674D3BB943053 /* ImageService.swift */,
+				A63A1FF6D8C612950B4006DE /* TraktAPI.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		96449512C7246AE3A0317CD1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				007AC39B35501FFF499A4F50 /* Episode.swift */,
+				8120DEDB66959EBEBA6B18DA /* Show.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		967C928C9EF183AAC44426D2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1019B01A5CF4D2A6B9A26BB2 /* EpisodeRowView.swift */,
+				37000030042900846F75AB60 /* SectionHeaderView.swift */,
+				41FCE3A73F3F9109BEE37123 /* UpcomingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AFF1E3D06BC78B589F972340 /* Trakt */ = {
+			isa = PBXGroup;
+			children = (
+				D0BA5BE445833E83D00053B7 /* Assets.xcassets */,
+				59C72FB864D86A62B3C2F638 /* ContentView.swift */,
+				3419B446D7E709AB45133CED /* Trakt.entitlements */,
+				FA24B4E78744BAD1D1F0DE43 /* TraktApp.swift */,
+				C09D6FFA9C00D340284EFB3E /* Config */,
+				96449512C7246AE3A0317CD1 /* Models */,
+				7CC9BD34D8496BC6FC9DA11C /* Services */,
+				967C928C9EF183AAC44426D2 /* Views */,
+			);
 			path = Trakt;
 			sourceTree = "<group>";
 		};
-/* End PBXFileSystemSynchronizedRootGroup section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		2C80047F2F2962B30057D0C2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		2C8004792F2962B30057D0C2 = {
+		C09D6FFA9C00D340284EFB3E /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				2C8004842F2962B30057D0C2 /* Trakt */,
-				2C8004832F2962B30057D0C2 /* Products */,
+				33BFF57DF389BF56360D3925 /* Constants.swift */,
+				ED806B6A7DE2CA4549215612 /* Secrets.swift */,
 			);
-			sourceTree = "<group>";
-		};
-		2C8004832F2962B30057D0C2 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2C8004822F2962B30057D0C2 /* Trakt.app */,
-			);
-			name = Products;
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2C8004812F2962B30057D0C2 /* Trakt */ = {
+		42668C9A44507106C1489220 /* TraktWidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2C80048D2F2962B40057D0C2 /* Build configuration list for PBXNativeTarget "Trakt" */;
+			buildConfigurationList = 5860592C08A2810E2544CBCF /* Build configuration list for PBXNativeTarget "TraktWidgetExtension" */;
 			buildPhases = (
-				2C80047E2F2962B30057D0C2 /* Sources */,
-				2C80047F2F2962B30057D0C2 /* Frameworks */,
-				2C8004802F2962B30057D0C2 /* Resources */,
+				D869455521B8DFC0413155F0 /* Sources */,
+				8B1F31EA6039D1A1F866D319 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				2C8004842F2962B30057D0C2 /* Trakt */,
+			name = TraktWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = TraktWidgetExtension;
+			productReference = A98D3F81E0FD53E2BA682F8C /* TraktWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		B8B909FFCC56A69B77F78470 /* Trakt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 029965A12B02B654651A8EB3 /* Build configuration list for PBXNativeTarget "Trakt" */;
+			buildPhases = (
+				2BF1223B721F4F818EFA2203 /* Sources */,
+				74389EAB2450EF543C0C29A0 /* Resources */,
+				262461196CA6EA1EC2FF6E5A /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9B8BE8DEBE3D6CF0FC5D403C /* PBXTargetDependency */,
 			);
 			name = Trakt;
 			packageProductDependencies = (
 			);
 			productName = Trakt;
-			productReference = 2C8004822F2962B30057D0C2 /* Trakt.app */;
+			productReference = 2EFF101B4D2344120EBC781F /* Trakt.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		2C80047A2F2962B30057D0C2 /* Project object */ = {
+		F29E1F03D014A49E5D3630B4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2620;
+				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
-					2C8004812F2962B30057D0C2 = {
-						CreatedOnToolsVersion = 26.2;
+					42668C9A44507106C1489220 = {
+						DevelopmentTeam = BH4ZLEBC89;
+					};
+					B8B909FFCC56A69B77F78470 = {
+						DevelopmentTeam = BH4ZLEBC89;
 					};
 				};
 			};
-			buildConfigurationList = 2C80047D2F2962B30057D0C2 /* Build configuration list for PBXProject "Trakt" */;
+			buildConfigurationList = 58B9BFF8D39C0D60AD8E04A9 /* Build configuration list for PBXProject "Trakt" */;
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				en,
 			);
-			mainGroup = 2C8004792F2962B30057D0C2;
+			mainGroup = 4DBD1E152410EB4A09716E91;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 2C8004832F2962B30057D0C2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2C8004812F2962B30057D0C2 /* Trakt */,
+				B8B909FFCC56A69B77F78470 /* Trakt */,
+				42668C9A44507106C1489220 /* TraktWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2C8004802F2962B30057D0C2 /* Resources */ = {
+		74389EAB2450EF543C0C29A0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFE18C5ABADA8B7ADA67EE49 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B1F31EA6039D1A1F866D319 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BD2614761C7F7F14554FEE7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2C80047E2F2962B30057D0C2 /* Sources */ = {
+		2BF1223B721F4F818EFA2203 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E58E588335DA066797F95D3 /* AuthManager.swift in Sources */,
+				16EAB3B85019FD9A4AE1F874 /* Constants.swift in Sources */,
+				7A28174D4920C23A4AB49571 /* ContentView.swift in Sources */,
+				5BC103D07608C26BDEED8332 /* Episode.swift in Sources */,
+				E2723C76A156B0F21EF318FC /* EpisodeRowView.swift in Sources */,
+				A2A95118459CF886A26B0484 /* ImageService.swift in Sources */,
+				BC47932F57892F1CB8E79540 /* Secrets.swift in Sources */,
+				6D3DA159224CBE0D93D1CB44 /* SectionHeaderView.swift in Sources */,
+				EA0E236FFD8D20606981ADFB /* Show.swift in Sources */,
+				9DE252361147E520566F5F7D /* TraktAPI.swift in Sources */,
+				05E2D33A9A3D798DAB7EDC3F /* TraktApp.swift in Sources */,
+				492CD40AA35F07059B53302C /* UpcomingView.swift in Sources */,
+				FF626845589552008024ACF3 /* WidgetEpisodeData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D869455521B8DFC0413155F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCBC36F66487BE040400B8E4 /* TraktWidget.swift in Sources */,
+				82F625D18E56305DA57E19E9 /* TraktWidgetBundle.swift in Sources */,
+				2017C0C61A6885E8FF85F88A /* WidgetEpisodeData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9B8BE8DEBE3D6CF0FC5D403C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 42668C9A44507106C1489220 /* TraktWidgetExtension */;
+			targetProxy = 41ED878778E9015A7F169CFE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
-		2C80048B2F2962B40057D0C2 /* Debug */ = {
+		03ED8CBAB5065A9E06881559 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -159,18 +341,18 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = BH4ZLEBC89;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
+					"DEBUG=1",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -178,25 +360,99 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		2C80048C2F2962B40057D0C2 /* Release */ = {
+		12115CB8D1F96D3FFB1640E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Trakt/Trakt.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ivanmz.Trakt;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		437E3543899BD465448D5FB5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = TraktWidgetExtension.entitlements;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TraktWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TraktWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ivanmz.Trakt.TraktWidget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6CFAE59A83CF3501A10A0388 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Trakt/Trakt.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ivanmz.Trakt;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DE7BCA766180A413340457E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -223,12 +479,12 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = BH4ZLEBC89;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -236,102 +492,73 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				VALIDATE_PRODUCT = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
-		2C80048E2F2962B40057D0C2 /* Debug */ = {
+		F5AD5807E2A0B29C7107208A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BH4ZLEBC89;
-				ENABLE_PREVIEWS = YES;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = TraktWidgetExtension.entitlements;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_FILE = TraktWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TraktWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ivanmz.Trakt;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ivanmz.Trakt.TraktWidget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		2C80048F2F2962B40057D0C2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BH4ZLEBC89;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ivanmz.Trakt;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2C80047D2F2962B30057D0C2 /* Build configuration list for PBXProject "Trakt" */ = {
+		029965A12B02B654651A8EB3 /* Build configuration list for PBXNativeTarget "Trakt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2C80048B2F2962B40057D0C2 /* Debug */,
-				2C80048C2F2962B40057D0C2 /* Release */,
+				12115CB8D1F96D3FFB1640E7 /* Debug */,
+				6CFAE59A83CF3501A10A0388 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
-		2C80048D2F2962B40057D0C2 /* Build configuration list for PBXNativeTarget "Trakt" */ = {
+		5860592C08A2810E2544CBCF /* Build configuration list for PBXNativeTarget "TraktWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2C80048E2F2962B40057D0C2 /* Debug */,
-				2C80048F2F2962B40057D0C2 /* Release */,
+				F5AD5807E2A0B29C7107208A /* Debug */,
+				437E3543899BD465448D5FB5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
+		};
+		58B9BFF8D39C0D60AD8E04A9 /* Build configuration list for PBXProject "Trakt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03ED8CBAB5065A9E06881559 /* Debug */,
+				DE7BCA766180A413340457E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 2C80047A2F2962B30057D0C2 /* Project object */;
+	rootObject = F29E1F03D014A49E5D3630B4 /* Project object */;
 }

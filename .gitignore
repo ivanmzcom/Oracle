@@ -1,0 +1,9 @@
+# Secrets
+Trakt/Config/Secrets.swift
+
+# Xcode user data
+*.xcuserdata/
+xcuserdata/
+
+# Claude
+.claude/
