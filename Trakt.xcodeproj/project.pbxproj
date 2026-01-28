@@ -145,6 +145,7 @@
 		EE3C0BB32B9199A79B87B520 /* WatchSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSearchView.swift; sourceTree = "<group>"; };
 		EEF6CC089933AA0CC72A9B8E /* OracleWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleWatchApp.swift; sourceTree = "<group>"; };
 		F0250EE03645D0D572AA6F9D /* WatchHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHistoryView.swift; sourceTree = "<group>"; };
+		F1B44F3E039B71DA022A5F7A /* OracleWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OracleWatch.entitlements; sourceTree = "<group>"; };
 		F5FD32651D613D87BE9EB73C /* WatchEpisodeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchEpisodeDetailView.swift; sourceTree = "<group>"; };
 		FA032C9A0A897F9C4D02E820 /* ShowDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailView.swift; sourceTree = "<group>"; };
 		FA24B4E78744BAD1D1F0DE43 /* TraktApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktApp.swift; sourceTree = "<group>"; };
@@ -224,6 +225,7 @@
 			children = (
 				49A4115E1234E57BEE2A0C45 /* Assets.xcassets */,
 				81CF29818BC63ED3AEA5795F /* ContentView.swift */,
+				F1B44F3E039B71DA022A5F7A /* OracleWatch.entitlements */,
 				EEF6CC089933AA0CC72A9B8E /* OracleWatchApp.swift */,
 				667006AEA46C41A099C0C1C8 /* WatchTraktAPI.swift */,
 				574D1B464F7FCEBD34FB8829 /* Resources */,
@@ -614,6 +616,7 @@
 				CODE_SIGN_ENTITLEMENTS = Trakt/Trakt.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -780,6 +783,7 @@
 				CODE_SIGN_ENTITLEMENTS = Trakt/Trakt.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

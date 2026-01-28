@@ -4,6 +4,21 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Oracle.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>OracleWatch.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>OracleWidgetExtension.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>Trakt.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -13,6 +28,34 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>42668C9A44507106C1489220</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9BE12A4B54631E1F0BBCB16D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A5FD47E80543B58F40D0D5A6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B8B909FFCC56A69B77F78470</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DB5714D27EF9CF75A56C733D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
