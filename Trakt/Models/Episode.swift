@@ -43,13 +43,21 @@ struct CalendarEntry: Codable, Identifiable {
 
 // MARK: - Episode Group (for consecutive episodes)
 
-struct EpisodeGroup: Identifiable {
+struct EpisodeGroup: Identifiable, Hashable {
     let show: Show
     let season: Int
     let episodes: [CalendarEntry]
 
     var id: String {
         "\(show.id)-\(season)-\(episodes.first?.episode.number ?? 0)"
+    }
+
+    static func == (lhs: EpisodeGroup, rhs: EpisodeGroup) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 
     var firstAired: Date {

@@ -115,7 +115,9 @@ struct UpcomingView: View {
             if !availableGroups.isEmpty {
                 Section {
                     ForEach(availableGroups) { group in
-                        EpisodeRowView(group: group)
+                        NavigationLink(value: group) {
+                            EpisodeRowView(group: group)
+                        }
                     }
                 } header: {
                     SectionHeaderView(title: "Up Next", count: availableGroups.map(\.episodeCount).reduce(0, +))
@@ -125,7 +127,9 @@ struct UpcomingView: View {
             if !upcomingGroups.isEmpty {
                 Section {
                     ForEach(upcomingGroups) { group in
-                        EpisodeRowView(group: group)
+                        NavigationLink(value: group) {
+                            EpisodeRowView(group: group)
+                        }
                     }
                 } header: {
                     SectionHeaderView(title: "Próximamente", count: upcomingGroups.map(\.episodeCount).reduce(0, +))
@@ -139,6 +143,9 @@ struct UpcomingView: View {
                     description: Text("No tienes episodios pendientes")
                 )
             }
+        }
+        .navigationDestination(for: EpisodeGroup.self) { group in
+            EpisodeDetailView(group: group)
         }
         .listStyle(.insetGrouped)
         .refreshable {

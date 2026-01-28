@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		05E2D33A9A3D798DAB7EDC3F /* TraktApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24B4E78744BAD1D1F0DE43 /* TraktApp.swift */; };
+		1625CF5F6DAB4FEED5BCEF69 /* EpisodeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950BBD705B2929CD0A9E8E83 /* EpisodeDetailView.swift */; };
 		16EAB3B85019FD9A4AE1F874 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BFF57DF389BF56360D3925 /* Constants.swift */; };
 		1BD2614761C7F7F14554FEE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56D8315BD745D0FEBE5E5C08 /* Assets.xcassets */; };
 		2017C0C61A6885E8FF85F88A /* WidgetEpisodeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD778D21DBA50D487CFD4A33 /* WidgetEpisodeData.swift */; };
@@ -21,10 +22,12 @@
 		A2A95118459CF886A26B0484 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FC52DC8E674D3BB943053 /* ImageService.swift */; };
 		AFE18C5ABADA8B7ADA67EE49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0BA5BE445833E83D00053B7 /* Assets.xcassets */; };
 		BC47932F57892F1CB8E79540 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED806B6A7DE2CA4549215612 /* Secrets.swift */; };
+		D287899EBC762508EB5D0F04 /* WidgetDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9742EC0163BC1B49E4A432 /* WidgetDataService.swift */; };
 		D2FE45A412E230A13C8C73C2 /* TraktWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A98D3F81E0FD53E2BA682F8C /* TraktWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E2723C76A156B0F21EF318FC /* EpisodeRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1019B01A5CF4D2A6B9A26BB2 /* EpisodeRowView.swift */; };
 		EA0E236FFD8D20606981ADFB /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120DEDB66959EBEBA6B18DA /* Show.swift */; };
 		FCBC36F66487BE040400B8E4 /* TraktWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF5A1FEFAF2DDC0E9E525D /* TraktWidget.swift */; };
+		FF10334944DBE16624E276C3 /* WidgetDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9742EC0163BC1B49E4A432 /* WidgetDataService.swift */; };
 		FF626845589552008024ACF3 /* WidgetEpisodeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD778D21DBA50D487CFD4A33 /* WidgetEpisodeData.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +67,7 @@
 		59C72FB864D86A62B3C2F638 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8120DEDB66959EBEBA6B18DA /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
 		8BA6B51C3BC6F72C58EB1496 /* TraktWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TraktWidget.entitlements; sourceTree = "<group>"; };
+		950BBD705B2929CD0A9E8E83 /* EpisodeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailView.swift; sourceTree = "<group>"; };
 		A63A1FF6D8C612950B4006DE /* TraktAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktAPI.swift; sourceTree = "<group>"; };
 		A98D3F81E0FD53E2BA682F8C /* TraktWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = TraktWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		AACF5A1FEFAF2DDC0E9E525D /* TraktWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktWidget.swift; sourceTree = "<group>"; };
@@ -71,6 +75,7 @@
 		D73FC52DC8E674D3BB943053 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		D8AB44E3ED99C5D2FFD4DA6E /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		DA5A129C8C90445C799E0482 /* TraktWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktWidgetBundle.swift; sourceTree = "<group>"; };
+		DB9742EC0163BC1B49E4A432 /* WidgetDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDataService.swift; sourceTree = "<group>"; };
 		DD778D21DBA50D487CFD4A33 /* WidgetEpisodeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEpisodeData.swift; sourceTree = "<group>"; };
 		ED806B6A7DE2CA4549215612 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		FA24B4E78744BAD1D1F0DE43 /* TraktApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktApp.swift; sourceTree = "<group>"; };
@@ -90,6 +95,7 @@
 		534F922EACA9B6E34D3863C0 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				DB9742EC0163BC1B49E4A432 /* WidgetDataService.swift */,
 				DD778D21DBA50D487CFD4A33 /* WidgetEpisodeData.swift */,
 			);
 			path = Shared;
@@ -137,6 +143,7 @@
 		967C928C9EF183AAC44426D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				950BBD705B2929CD0A9E8E83 /* EpisodeDetailView.swift */,
 				1019B01A5CF4D2A6B9A26BB2 /* EpisodeRowView.swift */,
 				37000030042900846F75AB60 /* SectionHeaderView.swift */,
 				41FCE3A73F3F9109BEE37123 /* UpcomingView.swift */,
@@ -274,6 +281,7 @@
 				16EAB3B85019FD9A4AE1F874 /* Constants.swift in Sources */,
 				7A28174D4920C23A4AB49571 /* ContentView.swift in Sources */,
 				5BC103D07608C26BDEED8332 /* Episode.swift in Sources */,
+				1625CF5F6DAB4FEED5BCEF69 /* EpisodeDetailView.swift in Sources */,
 				E2723C76A156B0F21EF318FC /* EpisodeRowView.swift in Sources */,
 				A2A95118459CF886A26B0484 /* ImageService.swift in Sources */,
 				BC47932F57892F1CB8E79540 /* Secrets.swift in Sources */,
@@ -282,6 +290,7 @@
 				9DE252361147E520566F5F7D /* TraktAPI.swift in Sources */,
 				05E2D33A9A3D798DAB7EDC3F /* TraktApp.swift in Sources */,
 				492CD40AA35F07059B53302C /* UpcomingView.swift in Sources */,
+				D287899EBC762508EB5D0F04 /* WidgetDataService.swift in Sources */,
 				FF626845589552008024ACF3 /* WidgetEpisodeData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,6 +301,7 @@
 			files = (
 				FCBC36F66487BE040400B8E4 /* TraktWidget.swift in Sources */,
 				82F625D18E56305DA57E19E9 /* TraktWidgetBundle.swift in Sources */,
+				FF10334944DBE16624E276C3 /* WidgetDataService.swift in Sources */,
 				2017C0C61A6885E8FF85F88A /* WidgetEpisodeData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
