@@ -8,22 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var searchText = ""
+
     var body: some View {
         TabView {
-            UpcomingView()
-                .tabItem {
-                    Label("Próximo", systemImage: "play.circle")
-                }
+            Tab("Próximo", systemImage: "play.circle") {
+                UpcomingView()
+            }
 
-            HistoryView()
-                .tabItem {
-                    Label("Historial", systemImage: "clock.arrow.circlepath")
-                }
+            Tab("Historial", systemImage: "clock.arrow.circlepath") {
+                HistoryView()
+            }
 
-            SettingsView()
-                .tabItem {
-                    Label("Ajustes", systemImage: "gear")
+            Tab(role: .search) {
+                NavigationStack {
+                    SearchView(searchText: $searchText)
+                        .navigationTitle("Buscar")
                 }
+                .searchable(text: $searchText, prompt: "Buscar series...")
+            }
+
+            Tab("Ajustes", systemImage: "gear") {
+                SettingsView()
+            }
         }
     }
 }

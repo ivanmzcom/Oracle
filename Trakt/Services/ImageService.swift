@@ -27,6 +27,34 @@ actor ImageService {
         return await ImageCache.shared.getPosterData(tmdbId: tmdbId, size: size)
     }
 
+    // MARK: - Show Details
+
+    func getShowOverview(showId: Int) async -> String? {
+        let showDetails = await fetchShowDetails(showId: showId)
+        return showDetails?.overview
+    }
+
+    private func fetchShowDetails(showId: Int) async -> TMDBShowResponse? {
+        let sharedDefaults = UserDefaults(suiteName: "group.com.ivanmz.Trakt")
+        guard let apiKey = sharedDefaults?.string(forKey: "tmdb_api_key") else {
+            return nil
+        }
+
+        guard let url = URL(string: "https://api.themoviedb.org/3/tv/\(showId)?language=es-ES") else {
+            return nil
+        }
+
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            return try JSONDecoder().decode(TMDBShowResponse.self, from: data)
+        } catch {
+            return nil
+        }
+    }
+
     // MARK: - Episode Details
 
     func getEpisodeOverview(showId: Int, season: Int, episode: Int) async -> String? {

@@ -24,23 +24,36 @@ class TraktAPI {
     }
 
     func getUpNextEpisodes() async throws -> [CalendarEntry] {
-        // Get calendar shows from the past year - this automatically filters dropped shows
+        // Get calendar shows from the past year
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let startDate = Calendar.current.date(byAdding: .year, value: -1, to: Date())!
         let dateString = formatter.string(from: startDate)
 
-        let calendarEntries: [CalendarEntry] = try await request(
+        async let calendarEntriesTask: [CalendarEntry] = request(
             endpoint: "\(TraktConfig.Endpoints.calendarShows)/\(dateString)/365"
         )
+        async let watchlistTask: [WatchlistItem] = request(endpoint: "/users/me/watchlist/shows")
 
-        // Get unique shows from calendar (these are the active/non-dropped shows)
+        let (calendarEntries, watchlist) = try await (calendarEntriesTask, watchlistTask)
+
+        // Get unique shows from calendar and watchlist
         var seenShows = Set<Int>()
         var activeShows: [Show] = []
+
+        // Add calendar shows
         for entry in calendarEntries {
             if !seenShows.contains(entry.show.ids.trakt) {
                 seenShows.insert(entry.show.ids.trakt)
                 activeShows.append(entry.show)
+            }
+        }
+
+        // Add watchlist shows
+        for item in watchlist {
+            if !seenShows.contains(item.show.ids.trakt) {
+                seenShows.insert(item.show.ids.trakt)
+                activeShows.append(item.show)
             }
         }
 
@@ -134,7 +147,38 @@ class TraktAPI {
             "shows": [["ids": ["trakt": showId]]]
         ]
 
+        // Mark as dropped and remove from watchlist
         let _: HideShowResponse = try await postRequest(endpoint: "/users/hidden/dropped", body: body)
+        try? await removeFromWatchlist(showId: showId)
+    }
+
+    // MARK: - Search
+
+    func searchShows(query: String) async throws -> [SearchResult] {
+        guard !query.isEmpty else { return [] }
+        let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? query
+        let endpoint = "/search/show?query=\(encodedQuery)&limit=20"
+        return try await request(endpoint: endpoint)
+    }
+
+    // MARK: - Watchlist
+
+    func addToWatchlist(showId: Int) async throws {
+        let body: [String: [[String: [String: Int]]]] = [
+            "shows": [["ids": ["trakt": showId]]]
+        ]
+        let _: WatchlistResponse = try await postRequest(endpoint: "/sync/watchlist", body: body)
+    }
+
+    func removeFromWatchlist(showId: Int) async throws {
+        let body: [String: [[String: [String: Int]]]] = [
+            "shows": [["ids": ["trakt": showId]]]
+        ]
+        let _: WatchlistResponse = try await postRequest(endpoint: "/sync/watchlist/remove", body: body)
+    }
+
+    func getWatchlist() async throws -> [WatchlistItem] {
+        return try await request(endpoint: "/users/me/watchlist/shows")
     }
 
     // MARK: - User
@@ -254,6 +298,41 @@ struct HideShowResponse: Decodable {
 struct HideShowCount: Decodable {
     let movies: Int
     let shows: Int
+}
+
+struct SearchResult: Decodable, Identifiable {
+    let type: String
+    let score: Double?
+    let show: Show
+
+    var id: Int { show.id }
+}
+
+struct WatchlistResponse: Decodable {
+    let added: WatchlistCount?
+    let deleted: WatchlistCount?
+    let existing: WatchlistCount?
+}
+
+struct WatchlistCount: Decodable {
+    let movies: Int
+    let shows: Int
+    let seasons: Int
+    let episodes: Int
+}
+
+struct WatchlistItem: Decodable, Identifiable {
+    let rank: Int
+    let listedAt: Date
+    let show: Show
+
+    var id: Int { show.id }
+
+    enum CodingKeys: String, CodingKey {
+        case rank
+        case listedAt = "listed_at"
+        case show
+    }
 }
 
 enum TraktError: LocalizedError {

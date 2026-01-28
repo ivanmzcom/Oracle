@@ -14,6 +14,7 @@ struct UpcomingView: View {
     @State private var isLoading = false
     @State private var errorMessage: String?
     @State private var dropError: String?
+    @State private var lastLoadTime: Date?
 
     private var api: TraktAPI {
         TraktAPI(authManager: authManager)
@@ -36,6 +37,16 @@ struct UpcomingView: View {
             .task(id: authManager.isAuthenticated) {
                 if authManager.isAuthenticated && availableGroups.isEmpty && upcomingGroups.isEmpty {
                     await loadEpisodes()
+                }
+            }
+            .onAppear {
+                // Refresh if data is older than 2 minutes
+                if let lastLoad = lastLoadTime,
+                   Date().timeIntervalSince(lastLoad) > 120,
+                   authManager.isAuthenticated {
+                    Task {
+                        await loadEpisodes()
+                    }
                 }
             }
             .alert("Error al dropear", isPresented: .init(
@@ -238,6 +249,7 @@ struct UpcomingView: View {
 
             availableGroups = upNextResult.groupedByShowAndSeason()
             upcomingGroups = upcomingResult.asIndividualGroups()
+            lastLoadTime = Date()
 
             // Save upcoming episodes to shared storage for the widget
             let entries = Array(upcomingResult.prefix(10))

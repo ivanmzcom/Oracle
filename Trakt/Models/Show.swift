@@ -5,15 +5,23 @@
 
 import Foundation
 
-struct Show: Codable, Identifiable {
+struct Show: Codable, Identifiable, Hashable {
     let title: String
     let year: Int?
     let ids: ShowIds
 
     var id: Int { ids.trakt }
+
+    static func == (lhs: Show, rhs: Show) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
-struct ShowIds: Codable {
+struct ShowIds: Codable, Hashable {
     let trakt: Int
     let slug: String?
     let tvdb: Int?

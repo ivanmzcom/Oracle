@@ -19,15 +19,24 @@ struct EpisodeDetailView: View {
 
                 VStack(alignment: .leading, spacing: 16) {
                     // Show title and year
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(group.show.title)
-                            .font(.title)
-                            .fontWeight(.bold)
+                    NavigationLink(value: group.show) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            HStack {
+                                Text(group.show.title)
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(.primary)
 
-                        if let year = group.show.year {
-                            Text(String(year))
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
+                                Image(systemName: "chevron.right")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                            }
+
+                            if let year = group.show.year {
+                                Text(String(year))
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                            }
                         }
                     }
 
@@ -62,6 +71,9 @@ struct EpisodeDetailView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .navigationDestination(for: Show.self) { show in
+            ShowDetailView(show: show)
+        }
         .task {
             await loadImages()
             await loadEpisodeDetails()

@@ -42,13 +42,13 @@ struct EpisodeRowView: View {
             .overlay(alignment: .topLeading) {
                 if group.unwatchedCount > 1 {
                     Text("\(group.unwatchedCount)")
-                        .font(.headline)
+                        .font(.caption)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
-                        .padding(.horizontal, 7)
-                        .padding(.vertical, 3)
+                        .padding(.horizontal, 5)
+                        .padding(.vertical, 2)
                         .background(.red, in: Capsule())
-                        .offset(x: -8, y: -8)
+                        .offset(x: -6, y: -6)
                 }
             }
 
