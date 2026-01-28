@@ -18,11 +18,89 @@ struct Episode: Codable, Identifiable {
     }
 }
 
-struct EpisodeIds: Codable {
+struct EpisodeIds: Codable, Hashable {
     let trakt: Int
     let tvdb: Int?
     let imdb: String?
     let tmdb: Int?
+}
+
+// MARK: - Season
+
+struct Season: Codable, Identifiable, Hashable {
+    let number: Int
+    let ids: SeasonIds
+    let episodeCount: Int?
+    let airedEpisodes: Int?
+    let title: String?
+    let overview: String?
+    let firstAired: Date?
+
+    var id: Int { ids.trakt }
+
+    enum CodingKeys: String, CodingKey {
+        case number
+        case ids
+        case episodeCount = "episode_count"
+        case airedEpisodes = "aired_episodes"
+        case title
+        case overview
+        case firstAired = "first_aired"
+    }
+
+    static func == (lhs: Season, rhs: Season) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
+struct SeasonIds: Codable, Hashable {
+    let trakt: Int
+    let tvdb: Int?
+    let tmdb: Int?
+}
+
+// MARK: - Season Episode
+
+struct SeasonEpisode: Codable, Identifiable, Hashable {
+    let season: Int
+    let number: Int
+    let title: String?
+    let ids: EpisodeIds
+    let overview: String?
+    let firstAired: Date?
+    let runtime: Int?
+
+    var id: Int { ids.trakt }
+
+    var episodeCode: String {
+        String(format: "S%02dE%02d", season, number)
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case season
+        case number
+        case title
+        case ids
+        case overview
+        case firstAired = "first_aired"
+        case runtime
+    }
+
+    static func == (lhs: SeasonEpisode, rhs: SeasonEpisode) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    func toEpisode() -> Episode {
+        Episode(season: season, number: number, title: title, ids: ids)
+    }
 }
 
 struct CalendarEntry: Codable, Identifiable {

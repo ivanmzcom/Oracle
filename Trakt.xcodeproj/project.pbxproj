@@ -27,6 +27,7 @@
 		B277FCBD63DA0044AFF4C146 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B769161B7BD3F04649B7DBE2 /* SettingsView.swift */; };
 		B585E6C9176DFEA03B2BA352 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E6438F7A269B22BAE03ED /* ImageCache.swift */; };
 		BC47932F57892F1CB8E79540 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED806B6A7DE2CA4549215612 /* Secrets.swift */; };
+		C6D915FF53553BAE169E7215 /* SeasonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4726BCAF9067DD71E2F5391 /* SeasonDetailView.swift */; };
 		D287899EBC762508EB5D0F04 /* WidgetDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9742EC0163BC1B49E4A432 /* WidgetDataService.swift */; };
 		D2FE45A412E230A13C8C73C2 /* TraktWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A98D3F81E0FD53E2BA682F8C /* TraktWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E2723C76A156B0F21EF318FC /* EpisodeRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1019B01A5CF4D2A6B9A26BB2 /* EpisodeRowView.swift */; };
@@ -86,6 +87,7 @@
 		AACF5A1FEFAF2DDC0E9E525D /* TraktWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktWidget.swift; sourceTree = "<group>"; };
 		B769161B7BD3F04649B7DBE2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D0BA5BE445833E83D00053B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D4726BCAF9067DD71E2F5391 /* SeasonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonDetailView.swift; sourceTree = "<group>"; };
 		D73FC52DC8E674D3BB943053 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		D8AB44E3ED99C5D2FFD4DA6E /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		DA5A129C8C90445C799E0482 /* TraktWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktWidgetBundle.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				1019B01A5CF4D2A6B9A26BB2 /* EpisodeRowView.swift */,
 				A4CB83DE777576AD5355322A /* HistoryView.swift */,
 				620B428AEAE331B9336446F4 /* SearchView.swift */,
+				D4726BCAF9067DD71E2F5391 /* SeasonDetailView.swift */,
 				37000030042900846F75AB60 /* SectionHeaderView.swift */,
 				B769161B7BD3F04649B7DBE2 /* SettingsView.swift */,
 				FA032C9A0A897F9C4D02E820 /* ShowDetailView.swift */,
@@ -318,6 +321,7 @@
 				B585E6C9176DFEA03B2BA352 /* ImageCache.swift in Sources */,
 				A2A95118459CF886A26B0484 /* ImageService.swift in Sources */,
 				01E612CC4E33DB3C23CCDDBE /* SearchView.swift in Sources */,
+				C6D915FF53553BAE169E7215 /* SeasonDetailView.swift in Sources */,
 				BC47932F57892F1CB8E79540 /* Secrets.swift in Sources */,
 				6D3DA159224CBE0D93D1CB44 /* SectionHeaderView.swift in Sources */,
 				B277FCBD63DA0044AFF4C146 /* SettingsView.swift in Sources */,

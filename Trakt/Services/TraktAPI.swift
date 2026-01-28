@@ -152,6 +152,25 @@ class TraktAPI {
         try? await removeFromWatchlist(showId: showId)
     }
 
+    // MARK: - Show Progress
+
+    func getShowProgress(showId: Int) async throws -> ShowProgress {
+        let endpoint = "/shows/\(showId)/progress/watched"
+        return try await request(endpoint: endpoint)
+    }
+
+    // MARK: - Seasons & Episodes
+
+    func getShowSeasons(showId: Int) async throws -> [Season] {
+        let endpoint = "/shows/\(showId)/seasons?extended=full"
+        return try await request(endpoint: endpoint)
+    }
+
+    func getSeasonEpisodes(showId: Int, season: Int) async throws -> [SeasonEpisode] {
+        let endpoint = "/shows/\(showId)/seasons/\(season)/episodes?extended=full"
+        return try await request(endpoint: endpoint)
+    }
+
     // MARK: - Search
 
     func searchShows(query: String) async throws -> [SearchResult] {
