@@ -16,23 +16,45 @@ struct UpNextEntry: TimelineEntry {
 
 struct TraktWidgetProvider: TimelineProvider {
     private let sharedDefaults = UserDefaults(suiteName: "group.com.ivanmz.Trakt")
+    private let dataService = WidgetDataService()
 
     func placeholder(in context: Context) -> UpNextEntry {
         UpNextEntry(date: Date(), episodes: [], isLoggedIn: true)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (UpNextEntry) -> Void) {
-        completion(makeEntry())
+        // For snapshots, use cached data for speed
+        completion(makeCachedEntry())
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<UpNextEntry>) -> Void) {
-        let entry = makeEntry()
-        let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
-        let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
-        completion(timeline)
+        Task {
+            let entry = await makeEntry()
+            let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
+            let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
+            completion(timeline)
+        }
     }
 
-    private func makeEntry() -> UpNextEntry {
+    private func makeEntry() async -> UpNextEntry {
+        let isLoggedIn = sharedDefaults?.string(forKey: "trakt_access_token") != nil
+
+        guard isLoggedIn else {
+            return UpNextEntry(date: Date(), episodes: [], isLoggedIn: false)
+        }
+
+        // Fetch fresh data from the API
+        let episodes = await dataService.fetchUpcomingEpisodes()
+
+        // Cache the results for snapshots
+        if let data = try? JSONEncoder().encode(episodes) {
+            sharedDefaults?.set(data, forKey: "widget_episodes")
+        }
+
+        return UpNextEntry(date: Date(), episodes: episodes, isLoggedIn: true)
+    }
+
+    private func makeCachedEntry() -> UpNextEntry {
         let isLoggedIn = sharedDefaults?.string(forKey: "trakt_access_token") != nil
 
         var episodes: [WidgetEpisodeData] = []
