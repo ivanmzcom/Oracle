@@ -87,7 +87,12 @@ class TraktAPI {
                 ids: nextEpisode.ids
             )
 
-            return CalendarEntry(firstAired: firstAired, episode: episode, show: show)
+            // Calculate unwatched episodes count
+            let unwatchedCount = progress.aired - progress.completed
+
+            var entry = CalendarEntry(firstAired: firstAired, episode: episode, show: show)
+            entry.unwatchedCount = unwatchedCount
+            return entry
         } catch {
             // If we can't get progress for a show, just skip it
             return nil
@@ -120,6 +125,16 @@ class TraktAPI {
         let endpoint = "/sync/history/remove"
         let body: [String: [Int]] = ["ids": [historyId]]
         let _: HistoryRemoveResponse = try await postRequest(endpoint: endpoint, body: body)
+    }
+
+    // MARK: - Hide/Drop Shows
+
+    func dropShow(showId: Int) async throws {
+        let body: [String: [[String: [String: Int]]]] = [
+            "shows": [["ids": ["trakt": showId]]]
+        ]
+
+        let _: HideShowResponse = try await postRequest(endpoint: "/users/hidden/dropped", body: body)
     }
 
     // MARK: - User
@@ -230,6 +245,15 @@ struct HistoryDeletedCount: Decodable {
 
 struct HistoryNotFound: Decodable {
     let ids: [Int]
+}
+
+struct HideShowResponse: Decodable {
+    let added: HideShowCount
+}
+
+struct HideShowCount: Decodable {
+    let movies: Int
+    let shows: Int
 }
 
 enum TraktError: LocalizedError {

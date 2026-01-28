@@ -38,16 +38,17 @@ struct EpisodeRowView: View {
                 }
             }
             .frame(width: 44, height: 66)
-            .overlay(alignment: .topTrailing) {
-                if group.episodeCount > 1 {
-                    Text("\(group.episodeCount)")
-                        .font(.caption2)
+            .clipped()
+            .overlay(alignment: .topLeading) {
+                if group.unwatchedCount > 1 {
+                    Text("\(group.unwatchedCount)")
+                        .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
-                        .padding(.horizontal, 5)
-                        .padding(.vertical, 2)
+                        .padding(.horizontal, 7)
+                        .padding(.vertical, 3)
                         .background(.red, in: Capsule())
-                        .offset(x: 4, y: -4)
+                        .offset(x: -8, y: -8)
                 }
             }
 

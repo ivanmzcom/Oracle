@@ -29,6 +29,7 @@ struct CalendarEntry: Codable, Identifiable {
     let firstAired: Date
     let episode: Episode
     let show: Show
+    var unwatchedCount: Int?
 
     var id: String {
         "\(show.id)-\(episode.id)"
@@ -86,6 +87,10 @@ struct EpisodeGroup: Identifiable, Hashable {
 
     var episodeCount: Int {
         episodes.count
+    }
+
+    var unwatchedCount: Int {
+        episodes.first?.unwatchedCount ?? episodes.count
     }
 }
 

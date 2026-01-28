@@ -13,6 +13,7 @@ struct UpcomingView: View {
     @State private var upcomingGroups: [EpisodeGroup] = []
     @State private var isLoading = false
     @State private var errorMessage: String?
+    @State private var dropError: String?
 
     private var api: TraktAPI {
         TraktAPI(authManager: authManager)
@@ -35,6 +36,16 @@ struct UpcomingView: View {
             .task(id: authManager.isAuthenticated) {
                 if authManager.isAuthenticated && availableGroups.isEmpty && upcomingGroups.isEmpty {
                     await loadEpisodes()
+                }
+            }
+            .alert("Error al dropear", isPresented: .init(
+                get: { dropError != nil },
+                set: { if !$0 { dropError = nil } }
+            )) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                if let error = dropError {
+                    Text(error)
                 }
             }
         }
@@ -118,6 +129,15 @@ struct UpcomingView: View {
                         NavigationLink(value: group) {
                             EpisodeRowView(group: group)
                         }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button(role: .destructive) {
+                                Task {
+                                    await dropShow(group.show)
+                                }
+                            } label: {
+                                Label("Dropear", systemImage: "eye.slash")
+                            }
+                        }
                     }
                 } header: {
                     SectionHeaderView(title: "Up Next", count: availableGroups.map(\.episodeCount).reduce(0, +))
@@ -129,6 +149,15 @@ struct UpcomingView: View {
                     ForEach(dayGroup.episodes) { group in
                         NavigationLink(value: group) {
                             EpisodeRowView(group: group)
+                        }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button(role: .destructive) {
+                                Task {
+                                    await dropShow(group.show)
+                                }
+                            } label: {
+                                Label("Dropear", systemImage: "eye.slash")
+                            }
                         }
                     }
                 } header: {
@@ -242,6 +271,19 @@ struct UpcomingView: View {
         }
 
         isLoading = false
+    }
+
+    private func dropShow(_ show: Show) async {
+        do {
+            try await api.dropShow(showId: show.id)
+            // Remove from local state with animation
+            withAnimation {
+                availableGroups.removeAll { $0.show.id == show.id }
+                upcomingGroups.removeAll { $0.show.id == show.id }
+            }
+        } catch {
+            dropError = error.localizedDescription
+        }
     }
 }
 
